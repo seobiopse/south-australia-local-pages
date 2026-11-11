@@ -1,0 +1,203 @@
+{
+ "soccer": {
+  "title": "Soccer trophies",
+  "blurb": "Junior clubs through to senior leagues",
+  "from": "7.45",
+  "path": "trophies/s/soccer",
+  "img": "28-6752.webp",
+  "alt": "Football Male Figure On Marble Base Trophy",
+  "size": 141768
+ },
+ "afl": {
+  "title": "AFL trophies",
+  "blurb": "Best-and-fairest, premiership and junior footy",
+  "from": "7.95",
+  "path": "trophies/a/aussie-rules-afl",
+  "img": "afl-budget-boot-front-7678-7208.jpg",
+  "alt": "Budget Boot Trophy",
+  "size": 211944
+ },
+ "netball": {
+  "title": "Netball trophies",
+  "blurb": "Team and player awards for associations and schools",
+  "from": "9.10",
+  "path": "trophies/n/netball",
+  "img": "netball-mini-star-front-6999.jpg",
+  "alt": "Netball Mini Star Trophy",
+  "size": 164082
+ },
+ "cricket": {
+  "title": "Cricket trophies",
+  "blurb": "Batting, bowling and premiership awards",
+  "from": "8.10",
+  "path": "trophies/c/cricket",
+  "img": "7-6847.webp",
+  "alt": "Mini Black Cobra Cricket Ball Trophy",
+  "size": 176854
+ },
+ "tennis": {
+  "title": "Tennis trophies",
+  "blurb": "Club championships and junior tournaments",
+  "from": "9.10",
+  "path": "trophies/t/tennis",
+  "img": "2-tennis-mini-star-front-9555-2220.jpg",
+  "alt": "Mini Star Tennis Trophy",
+  "size": 211850
+ },
+ "athletics": {
+  "title": "Athletics trophies",
+  "blurb": "Carnival champions and age-group places",
+  "from": "7.95",
+  "path": "trophies/a/athletics",
+  "img": "3-athletics-podium-front-3310.jpg",
+  "alt": "Athletics Podium Trophy",
+  "size": 181736
+ },
+ "hockey": {
+  "title": "Hockey trophies",
+  "blurb": "Club, junior and association awards",
+  "from": "8.10",
+  "path": "trophies/h/hockey",
+  "img": "24-6842.webp",
+  "alt": "Mini Black Cobra Hockey Trophy",
+  "size": 235014
+ },
+ "equestrian": {
+  "title": "Equestrian trophies",
+  "blurb": "Pony club, show and event awards",
+  "from": "9.00",
+  "path": "trophies/e/equestrian",
+  "img": "horse-shoe-front-4261.jpg",
+  "alt": "Horse Shoe Trophy",
+  "size": 171303
+ },
+ "lawnbowls": {
+  "title": "Lawn bowls trophies",
+  "blurb": "Club pennants, pairs and fours",
+  "from": "9.10",
+  "path": "trophies/l/lawn-bowls",
+  "img": "lawn-bowls-mini-star-front-2112-1710.jpg",
+  "alt": "Lawn Bowls Mini Star Trophy",
+  "size": 219207
+ },
+ "rowing": {
+  "title": "Rowing trophies",
+  "blurb": "Regatta, crew and club awards",
+  "from": "8.10",
+  "path": "trophies/r/rowing",
+  "img": "dsc09812-5405.webp",
+  "alt": "Mini Black Cobra Rowing Trophy",
+  "size": 140020
+ },
+ "fishing": {
+  "title": "Fishing trophies",
+  "blurb": "Club competitions and tournament winners",
+  "from": "7.45",
+  "path": "trophies/f/fishing",
+  "img": "dsc08567-5997.webp",
+  "alt": "Tuna On Marble Base Trophy",
+  "size": 129732
+ },
+ "dance": {
+  "title": "Dance trophies",
+  "blurb": "Eisteddfods, concerts and studio awards",
+  "from": "7.35",
+  "path": "trophies/d/dance",
+  "img": "dsc08497-9978.webp",
+  "alt": "Ballerina Figure Female On Marble Base Trophy",
+  "size": 106390
+ },
+ "motorsports": {
+  "title": "Motorsport trophies",
+  "blurb": "Race, rally and club championship awards",
+  "from": "8.10",
+  "path": "trophies/m/motorsports",
+  "img": "dsc09816-5584.webp",
+  "alt": "Mini Black Cobra Motorsport RacingTrophy",
+  "size": 166186
+ },
+ "sailing": {
+  "title": "Sailing trophies",
+  "blurb": "Regatta and club series awards",
+  "from": "10.00",
+  "path": "trophies/s/sailing",
+  "img": "sailing-cosmos-super-mini-front-3623-6869.jpg",
+  "alt": "Cosmos Super Mini Sailing Trophy",
+  "size": 227894
+ },
+ "cycling": {
+  "title": "Cycling trophies",
+  "blurb": "Club races, criteriums and charity rides",
+  "from": "5.85",
+  "path": "trophies/c/cycling",
+  "img": "dsc08427-5078.webp",
+  "alt": "Cycling Figure Female On Marble Base Trophy",
+  "size": 135202
+ },
+ "schoolmedals": {
+  "title": "School medals",
+  "blurb": "Presentation-day medals for every subject and sport",
+  "from": "5.00",
+  "path": "medals/aa/academic-medals",
+  "img": "mw900g-3259.jpg",
+  "alt": "Achievement Wayfare Medal",
+  "size": 108819
+ },
+ "plaques": {
+  "title": "Corporate plaques",
+  "blurb": "Glass, acrylic and timber recognition",
+  "from": "20.30",
+  "path": "corporate-awards/plaques",
+  "img": "glass-budget-plaque-clear-fornt-with-text-6155.jpg",
+  "alt": "Glass Budget Plaque Clear",
+  "size": 314262
+ },
+ "rugby": {
+  "title": "Rugby league &amp; union trophies",
+  "blurb": "Club, junior and premiership awards",
+  "from": "7.45",
+  "path": "trophies/r/rugby-league",
+  "img": "64-4748-2107.webp",
+  "alt": "Male Rugby on Marble Base Trophy"
+ },
+ "rugbymedals": {
+  "title": "Rugby medals",
+  "blurb": "Presentation-day medals for juniors and seniors",
+  "from": "5.00",
+  "path": "medals/rr/rugby-league-medals",
+  "img": "mw913g-4973.jpg",
+  "alt": "Rugby Wayfare Medal"
+ },
+ "lifesaving": {
+  "title": "Surf life saving trophies",
+  "blurb": "Patrol, nipper and club championship awards",
+  "from": "8.60",
+  "path": "trophies/s/surf-life-saving",
+  "img": "2-lifesaving-budget-theme-front-9234-2824.jpg",
+  "alt": "Lifesaving Budget Theme Trophy"
+ },
+ "swimming": {
+  "title": "Swimming trophies",
+  "blurb": "Carnival champions and age-group awards",
+  "from": "8.10",
+  "path": "trophies/s/swimming",
+  "img": "9-2710.webp",
+  "alt": "Mini Black Cobra Swimming Trophy"
+ },
+ "basketball": {
+  "title": "Basketball trophies",
+  "blurb": "Team, MVP and association awards",
+  "from": "7.65",
+  "path": "trophies/b/basketball",
+  "img": "6-3938.webp",
+  "alt": "Basketball Figure Male with Marble Base Trophy"
+ },
+ "golf": {
+  "title": "Golf trophies",
+  "blurb": "Hole in one, nearest the pin and day winners",
+  "from": "7.45",
+  "path": "trophies/g/golf",
+  "img": "dsc08658-9498-4837.webp",
+  "alt": "Hole in 1 on Marble Base Trophy"
+ }
+}

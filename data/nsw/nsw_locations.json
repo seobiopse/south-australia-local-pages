@@ -1,0 +1,1001 @@
+{
+ "towns": [
+  {
+   "slug": "newcastle-maitland",
+   "name": "Newcastle–Maitland",
+   "region": "Hunter",
+   "km": 160,
+   "blurb": "NSW's second-largest urban area, spread from the Newcastle coast through Maitland and into the Hunter Valley.",
+   "sportline": "Rugby league, hockey, soccer and surf life saving all have strong followings across the lower Hunter.",
+   "sports": [
+    "rugby",
+    "hockey",
+    "lifesaving",
+    "soccer"
+   ],
+   "occasion": "end-of-season presentation days across Newcastle, Maitland and Lake Macquarie",
+   "pop": 541634,
+   "growth": 14.9
+  },
+  {
+   "slug": "central-coast",
+   "name": "Central Coast",
+   "region": "Central Coast",
+   "km": 80,
+   "blurb": "Gosford, Wyong, The Entrance and the beaches between, on the coast north of Sydney and south of Lake Macquarie.",
+   "sportline": "Surf clubs, junior soccer and rugby league fill much of the local calendar.",
+   "sports": [
+    "lifesaving",
+    "soccer",
+    "rugby",
+    "swimming"
+   ],
+   "occasion": "surf club awards, junior club presentations and school carnivals on the coast",
+   "pop": 354189,
+   "growth": 7.4
+  },
+  {
+   "slug": "wollongong",
+   "name": "Wollongong",
+   "region": "Illawarra",
+   "km": 80,
+   "blurb": "The Illawarra's main city, set between the escarpment and the Pacific.",
+   "sportline": "Rugby league, soccer, swimming and surf life saving are staples along the Illawarra coast.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "lifesaving",
+    "swimming"
+   ],
+   "occasion": "Illawarra club presentations, school carnivals and surf club awards",
+   "pop": 322343,
+   "growth": 10.5
+  },
+  {
+   "slug": "albury-wodonga",
+   "name": "Albury–Wodonga",
+   "region": "Murray",
+   "km": 550,
+   "blurb": "Twin cities on the NSW and Victorian border, divided by the Murray River.",
+   "sportline": "AFL and netball dominate the winter calendar on both sides of the river, with cricket and tennis through summer.",
+   "sports": [
+    "afl",
+    "netball",
+    "cricket",
+    "tennis"
+   ],
+   "occasion": "football and netball club presentations and school awards on both sides of the border",
+   "pop": 102435,
+   "growth": 14.7
+  },
+  {
+   "slug": "coffs-harbour",
+   "name": "Coffs Harbour",
+   "region": "Mid North Coast",
+   "km": 540,
+   "blurb": "A coastal city between the ranges and the Pacific, with a busy school and club calendar.",
+   "sportline": "Surf, soccer and golf are popular, with rugby league through the winter.",
+   "sports": [
+    "lifesaving",
+    "soccer",
+    "golf",
+    "rugby"
+   ],
+   "occasion": "surf club awards, golf day trophies and junior sport presentations",
+   "pop": 77244,
+   "growth": 11.6
+  },
+  {
+   "slug": "wagga-wagga",
+   "name": "Wagga Wagga",
+   "region": "Riverina",
+   "km": 460,
+   "blurb": "The Riverina's largest inland city, on the Murrumbidgee River.",
+   "sportline": "AFL, rugby league and netball are all strong, and cricket takes over in summer.",
+   "sports": [
+    "afl",
+    "rugby",
+    "netball",
+    "cricket"
+   ],
+   "occasion": "Riverina club presentations, school sports days and cricket season awards",
+   "pop": 58117,
+   "growth": 5.0
+  },
+  {
+   "slug": "port-macquarie",
+   "name": "Port Macquarie",
+   "region": "Mid North Coast",
+   "km": 390,
+   "blurb": "A coastal town at the mouth of the Hastings River, known for its beaches and golf.",
+   "sportline": "Surf life saving, golf and rugby league sit alongside a large swimming community.",
+   "sports": [
+    "lifesaving",
+    "golf",
+    "rugby",
+    "swimming"
+   ],
+   "occasion": "golf day trophies, surf club awards and school swimming carnivals",
+   "pop": 53369,
+   "growth": 16.5
+  },
+  {
+   "slug": "ballina",
+   "name": "Ballina",
+   "region": "Northern Rivers",
+   "km": 750,
+   "blurb": "A river-and-beach town at the mouth of the Richmond River on the Northern Rivers coast.",
+   "sportline": "Surf life saving, fishing and swimming suit the coastal lifestyle, with rugby league in winter.",
+   "sports": [
+    "lifesaving",
+    "fishing",
+    "swimming",
+    "rugby"
+   ],
+   "occasion": "fishing club competitions, surf club awards and school carnivals",
+   "pop": 48465,
+   "growth": 14.8
+  },
+  {
+   "slug": "tamworth",
+   "name": "Tamworth",
+   "region": "New England",
+   "km": 400,
+   "blurb": "A regional centre on the Peel River, best known as Australia's country music capital.",
+   "sportline": "Horse sports, rugby league and cricket are strong, and equestrian events are a regular fixture.",
+   "sports": [
+    "equestrian",
+    "rugby",
+    "cricket",
+    "netball"
+   ],
+   "occasion": "pony club and equestrian event awards, plus club and school presentations",
+   "pop": 46024,
+   "growth": 10.7
+  },
+  {
+   "slug": "orange",
+   "name": "Orange",
+   "region": "Central West",
+   "km": 260,
+   "blurb": "A Central West city at the foot of Mount Canobolas, known for its food and wine.",
+   "sportline": "Rugby league, soccer, netball and golf round out the local sporting year.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "netball",
+    "golf"
+   ],
+   "occasion": "club presentation nights, golf days and school sport awards",
+   "pop": 43213,
+   "growth": 10.2
+  },
+  {
+   "slug": "bowral-mittagong",
+   "name": "Bowral–Mittagong",
+   "region": "Southern Highlands",
+   "km": 110,
+   "blurb": "Bowral is the hometown of Sir Donald Bradman, and home to Bradman Oval and the Bradman Museum.",
+   "sportline": "Cricket is a local point of pride, alongside golf, tennis and lawn bowls.",
+   "sports": [
+    "cricket",
+    "golf",
+    "tennis",
+    "lawnbowls"
+   ],
+   "occasion": "cricket season awards, bowls and tennis club trophies and golf day prizes",
+   "pop": 42529,
+   "growth": 12.1
+  },
+  {
+   "slug": "dubbo",
+   "name": "Dubbo",
+   "region": "Orana, Central West",
+   "km": 390,
+   "blurb": "The main city of the NSW western plains, on the Macquarie River.",
+   "sportline": "Rugby league, netball, athletics and cricket make up most local presentations.",
+   "sports": [
+    "rugby",
+    "netball",
+    "athletics",
+    "cricket"
+   ],
+   "occasion": "sporting club presentations and school athletics carnivals across the western plains",
+   "pop": 42452,
+   "growth": 15.6
+  },
+  {
+   "slug": "nowra-bomaderry",
+   "name": "Nowra–Bomaderry",
+   "region": "Shoalhaven",
+   "km": 160,
+   "blurb": "Twin towns on the Shoalhaven River, the gateway to Jervis Bay.",
+   "sportline": "Fishing, surf life saving and rugby league are all well supported around the Shoalhaven.",
+   "sports": [
+    "fishing",
+    "lifesaving",
+    "rugby",
+    "swimming"
+   ],
+   "occasion": "fishing club prizes, surf club awards and school swimming carnivals",
+   "pop": 40264,
+   "growth": 11.2
+  },
+  {
+   "slug": "bathurst",
+   "name": "Bathurst",
+   "region": "Central West",
+   "km": 200,
+   "blurb": "Australia's oldest inland settlement, and home of the Mount Panorama motor racing circuit.",
+   "sportline": "Motorsport is part of the town's identity, alongside rugby league, cricket and cycling.",
+   "sports": [
+    "motorsports",
+    "rugby",
+    "cricket",
+    "cycling"
+   ],
+   "occasion": "motorsport club awards, cycling events and club presentations",
+   "pop": 39013,
+   "growth": 10.3
+  },
+  {
+   "slug": "morisset-cooranbong",
+   "name": "Morisset–Cooranbong",
+   "region": "Lake Macquarie",
+   "km": 120,
+   "blurb": "Growing communities on the western side of Lake Macquarie.",
+   "sportline": "Soccer, netball and rugby league fill the winter weekends, with swimming in summer.",
+   "sports": [
+    "soccer",
+    "netball",
+    "rugby",
+    "swimming"
+   ],
+   "occasion": "junior club presentations and school carnivals around Lake Macquarie",
+   "pop": 31333,
+   "growth": 31.2
+  },
+  {
+   "slug": "nelson-bay",
+   "name": "Nelson Bay",
+   "region": "Port Stephens",
+   "km": 200,
+   "blurb": "A bayside town on Port Stephens, popular for boating, fishing and whale watching.",
+   "sportline": "Sailing, fishing and swimming suit the bay, with golf for the weekend crowd.",
+   "sports": [
+    "sailing",
+    "fishing",
+    "swimming",
+    "golf"
+   ],
+   "occasion": "sailing regatta awards, fishing competition trophies and golf day prizes",
+   "pop": 29024,
+   "growth": 7.0
+  },
+  {
+   "slug": "lismore",
+   "name": "Lismore",
+   "region": "Northern Rivers",
+   "km": 740,
+   "blurb": "The Northern Rivers' regional hub, on the Wilsons River.",
+   "sportline": "Rugby league, netball, soccer and cricket carry the local sporting calendar.",
+   "sports": [
+    "rugby",
+    "netball",
+    "soccer",
+    "cricket"
+   ],
+   "occasion": "club presentations, school sport awards and community events",
+   "pop": 27856,
+   "growth": -4.3
+  },
+  {
+   "slug": "taree",
+   "name": "Taree",
+   "region": "Manning Valley, Mid North Coast",
+   "km": 320,
+   "blurb": "The Manning Valley's main town, on the Manning River.",
+   "sportline": "Rugby league, soccer, netball and cricket are the main local sports.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "netball",
+    "cricket"
+   ],
+   "occasion": "junior and senior club presentations across the Manning Valley",
+   "pop": 26858,
+   "growth": 1.8
+  },
+  {
+   "slug": "goulburn",
+   "name": "Goulburn",
+   "region": "Southern Tablelands",
+   "km": 195,
+   "blurb": "One of Australia's oldest inland cities, home of the Big Merino.",
+   "sportline": "Rugby league, cricket, equestrian and netball are well supported across the tablelands.",
+   "sports": [
+    "rugby",
+    "cricket",
+    "equestrian",
+    "netball"
+   ],
+   "occasion": "club presentations, equestrian events and school sport awards",
+   "pop": 25647,
+   "growth": 10.8
+  },
+  {
+   "slug": "armidale",
+   "name": "Armidale",
+   "region": "New England",
+   "km": 460,
+   "blurb": "A tablelands university city, home of the University of New England.",
+   "sportline": "Rugby union, cricket, hockey and athletics are all part of the local calendar.",
+   "sports": [
+    "rugby",
+    "cricket",
+    "hockey",
+    "athletics"
+   ],
+   "occasion": "school and university sport awards, plus club presentations",
+   "pop": 24436,
+   "growth": 1.9
+  },
+  {
+   "slug": "forster-tuncurry",
+   "name": "Forster–Tuncurry",
+   "region": "Great Lakes, Mid North Coast",
+   "km": 310,
+   "blurb": "Twin towns on either side of the Wallis Lake entrance.",
+   "sportline": "Surf life saving, fishing and golf suit the lakes-and-beaches lifestyle.",
+   "sports": [
+    "lifesaving",
+    "fishing",
+    "golf",
+    "swimming"
+   ],
+   "occasion": "surf club awards, fishing competitions and golf day trophies",
+   "pop": 21272,
+   "growth": 3.1
+  },
+  {
+   "slug": "griffith",
+   "name": "Griffith",
+   "region": "Riverina",
+   "km": 570,
+   "blurb": "A Riverina city in the Murrumbidgee Irrigation Area, known for farming and food.",
+   "sportline": "Soccer, AFL, netball and golf are all popular across the Riverina.",
+   "sports": [
+    "soccer",
+    "afl",
+    "netball",
+    "golf"
+   ],
+   "occasion": "club presentations, golf days and school sport awards",
+   "pop": 20774,
+   "growth": 6.5
+  },
+  {
+   "slug": "st-georges-basin-sanctuary-point",
+   "name": "St Georges Basin–Sanctuary Point",
+   "region": "Shoalhaven",
+   "km": 190,
+   "blurb": "Lakeside communities around St Georges Basin, close to Jervis Bay.",
+   "sportline": "Fishing and lawn bowls are local favourites, with junior soccer and swimming too.",
+   "sports": [
+    "fishing",
+    "lawnbowls",
+    "soccer",
+    "swimming"
+   ],
+   "occasion": "bowls club pennants, fishing competitions and junior club presentations",
+   "pop": 20492,
+   "growth": 12.4
+  },
+  {
+   "slug": "camden-haven",
+   "name": "Camden Haven",
+   "region": "Mid North Coast",
+   "km": 360,
+   "blurb": "Laurieton, Kendall and the villages around Camden Haven Inlet.",
+   "sportline": "Lawn bowls, golf and fishing suit the area's retiree and holiday communities.",
+   "sports": [
+    "lawnbowls",
+    "golf",
+    "fishing",
+    "lifesaving"
+   ],
+   "occasion": "bowls and golf club trophies, fishing competitions and surf club awards",
+   "pop": 19995,
+   "growth": 19.4
+  },
+  {
+   "slug": "grafton",
+   "name": "Grafton",
+   "region": "Clarence Valley",
+   "km": 600,
+   "blurb": "A Clarence River city known for its jacaranda trees and the Grafton Cup.",
+   "sportline": "Horse racing and equestrian events sit alongside rugby league, cricket and netball.",
+   "sports": [
+    "equestrian",
+    "rugby",
+    "cricket",
+    "netball"
+   ],
+   "occasion": "racing and equestrian awards, plus club and school presentations",
+   "pop": 19905,
+   "growth": 4.6
+  },
+  {
+   "slug": "batemans-bay",
+   "name": "Batemans Bay",
+   "region": "Eurobodalla, South Coast",
+   "km": 280,
+   "blurb": "A South Coast town on the Clyde River, popular for fishing and boating.",
+   "sportline": "Fishing, golf and surf life saving are strong, with swimming through the summer.",
+   "sports": [
+    "fishing",
+    "golf",
+    "lifesaving",
+    "swimming"
+   ],
+   "occasion": "fishing competition trophies, golf days and surf club awards",
+   "pop": 17849,
+   "growth": 9.2
+  },
+  {
+   "slug": "ulladulla",
+   "name": "Ulladulla",
+   "region": "Shoalhaven, South Coast",
+   "km": 220,
+   "blurb": "A fishing harbour town on the southern Shoalhaven coast.",
+   "sportline": "Fishing, surf life saving and lawn bowls are staples of the local club scene.",
+   "sports": [
+    "fishing",
+    "lifesaving",
+    "swimming",
+    "lawnbowls"
+   ],
+   "occasion": "fishing club prizes, surf club awards and bowls club trophies",
+   "pop": 17567,
+   "growth": 14.2
+  },
+  {
+   "slug": "broken-hill",
+   "name": "Broken Hill",
+   "region": "Far West",
+   "km": 1150,
+   "blurb": "A remote mining city in the Far West, closer to Adelaide than to Sydney.",
+   "sportline": "AFL is the dominant winter sport, with cricket and netball close behind.",
+   "sports": [
+    "afl",
+    "cricket",
+    "netball",
+    "golf"
+   ],
+   "occasion": "football and netball presentations, cricket season awards and golf days",
+   "pop": 17515,
+   "growth": -4.6
+  },
+  {
+   "slug": "singleton",
+   "name": "Singleton",
+   "region": "Hunter",
+   "km": 230,
+   "blurb": "A Hunter Valley town on the Hunter River, close to mining and wine country.",
+   "sportline": "Rugby league, cricket, soccer and netball carry the local sporting year.",
+   "sports": [
+    "rugby",
+    "cricket",
+    "soccer",
+    "netball"
+   ],
+   "occasion": "club presentations and workplace recognition across the Upper Hunter",
+   "pop": 17396,
+   "growth": 5.0
+  },
+  {
+   "slug": "medowie",
+   "name": "Medowie",
+   "region": "Port Stephens",
+   "km": 190,
+   "blurb": "A growing town between Raymond Terrace and Williamtown.",
+   "sportline": "Junior soccer, cricket, netball and rugby league keep the local grounds busy.",
+   "sports": [
+    "soccer",
+    "cricket",
+    "netball",
+    "rugby"
+   ],
+   "occasion": "junior club presentations and school sport awards",
+   "pop": 17178,
+   "growth": 24.7
+  },
+  {
+   "slug": "kempsey",
+   "name": "Kempsey",
+   "region": "Macleay Valley, Mid North Coast",
+   "km": 400,
+   "blurb": "The Macleay Valley's main town, on the Macleay River.",
+   "sportline": "Rugby league, cricket, netball and athletics are the mainstays.",
+   "sports": [
+    "rugby",
+    "cricket",
+    "netball",
+    "athletics"
+   ],
+   "occasion": "club presentations and school carnivals across the Macleay Valley",
+   "pop": 16272,
+   "growth": 8.1
+  },
+  {
+   "slug": "mudgee",
+   "name": "Mudgee",
+   "region": "Central West",
+   "km": 260,
+   "blurb": "A Central West town known for its wine, food and surrounding farmland.",
+   "sportline": "Rugby league, cricket, golf and horse sports all feature on the local calendar.",
+   "sports": [
+    "rugby",
+    "cricket",
+    "golf",
+    "equestrian"
+   ],
+   "occasion": "club presentations, golf days and equestrian event awards",
+   "pop": 12965,
+   "growth": 9.1
+  },
+  {
+   "slug": "muswellbrook",
+   "name": "Muswellbrook",
+   "region": "Upper Hunter",
+   "km": 260,
+   "blurb": "An Upper Hunter town surrounded by horse studs, mines and farms.",
+   "sportline": "Horse sports lead the way, with rugby league, cricket and netball close behind.",
+   "sports": [
+    "equestrian",
+    "rugby",
+    "cricket",
+    "netball"
+   ],
+   "occasion": "equestrian event awards plus club presentations and mine-site recognition",
+   "pop": 12595,
+   "growth": 2.1
+  },
+  {
+   "slug": "lithgow",
+   "name": "Lithgow",
+   "region": "Central West, west of the Blue Mountains",
+   "km": 140,
+   "blurb": "A town in the Lithgow valley on the western side of the Blue Mountains.",
+   "sportline": "Rugby league, cricket, netball and hockey fill the winter and summer seasons.",
+   "sports": [
+    "rugby",
+    "cricket",
+    "netball",
+    "hockey"
+   ],
+   "occasion": "club presentations and school sport awards",
+   "pop": 12124,
+   "growth": -7.0
+  },
+  {
+   "slug": "byron-bay",
+   "name": "Byron Bay",
+   "region": "Northern Rivers",
+   "km": 770,
+   "blurb": "A coastal town at Cape Byron, the most easterly point of mainland Australia, with a strong surf culture.",
+   "sportline": "Surf life saving, swimming and fishing lead, with dance and community events year-round.",
+   "sports": [
+    "lifesaving",
+    "swimming",
+    "fishing",
+    "dance"
+   ],
+   "occasion": "surf club awards, school carnivals and community event trophies",
+   "pop": 11482,
+   "growth": 14.6
+  }
+ ],
+ "suburbs": [
+  {
+   "slug": "blacktown",
+   "name": "Blacktown",
+   "region": "Western Sydney hub",
+   "store": "castle-hill",
+   "blurb": "Western Sydney's largest hub, with about 50,900 residents.",
+   "sportline": "Rugby league, soccer, cricket and basketball are all well supported across the area.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "cricket",
+    "basketball"
+   ],
+   "occasion": "club and school presentations across Western Sydney",
+   "near": [
+    "parramatta",
+    "granville",
+    "penrith"
+   ]
+  },
+  {
+   "slug": "castle-hill",
+   "name": "Castle Hill",
+   "region": "Hills District",
+   "store": "castle-hill",
+   "blurb": "Home to our Hoyle Avenue location, in the Hills District with about 39,200 residents.",
+   "sportline": "Netball, soccer, cricket and tennis are popular with Hills District families and schools.",
+   "sports": [
+    "netball",
+    "soccer",
+    "cricket",
+    "tennis"
+   ],
+   "occasion": "school presentation nights and junior club awards across the Hills",
+   "near": [
+    "baulkham-hills",
+    "norwest",
+    "epping"
+   ]
+  },
+  {
+   "slug": "auburn",
+   "name": "Auburn",
+   "region": "Central West Sydney",
+   "store": "both",
+   "blurb": "A diverse suburb of about 36,600 residents, between Parramatta and the Olympic Park precinct.",
+   "sportline": "Soccer, rugby league, basketball and athletics are the main community sports.",
+   "sports": [
+    "soccer",
+    "rugby",
+    "basketball",
+    "athletics"
+   ],
+   "occasion": "community club awards and school sports days",
+   "near": [
+    "granville",
+    "parramatta",
+    "campsie"
+   ]
+  },
+  {
+   "slug": "baulkham-hills",
+   "name": "Baulkham Hills",
+   "region": "Hills District",
+   "store": "castle-hill",
+   "blurb": "A large Hills District suburb of about 36,300 residents, with many schools and clubs.",
+   "sportline": "Cricket, netball, swimming and school sport keep the area busy through the year.",
+   "sports": [
+    "cricket",
+    "netball",
+    "swimming",
+    "schoolmedals"
+   ],
+   "occasion": "school medals, swimming carnival awards and club presentations",
+   "near": [
+    "castle-hill",
+    "norwest",
+    "epping"
+   ]
+  },
+  {
+   "slug": "norwest",
+   "name": "Norwest",
+   "region": "Commercial and residential growth",
+   "store": "castle-hill",
+   "blurb": "A growing business and residential area of about 36,300 residents, around the Norwest Business Park.",
+   "sportline": "Corporate recognition, golf days and local club sport all feature here.",
+   "sports": [
+    "plaques",
+    "golf",
+    "soccer",
+    "tennis"
+   ],
+   "occasion": "corporate plaques, golf days and club awards",
+   "near": [
+    "castle-hill",
+    "baulkham-hills",
+    "blacktown"
+   ]
+  },
+  {
+   "slug": "greenacre",
+   "name": "Greenacre",
+   "region": "South-West Sydney",
+   "store": "riverwood",
+   "blurb": "A suburb of about 32,300 residents in Sydney's south-west.",
+   "sportline": "Soccer, basketball, rugby league and athletics are popular with local clubs and schools.",
+   "sports": [
+    "soccer",
+    "basketball",
+    "rugby",
+    "athletics"
+   ],
+   "occasion": "community clubs and school sports days in the south-west",
+   "near": [
+    "bankstown",
+    "campsie",
+    "hurstville"
+   ]
+  },
+  {
+   "slug": "bankstown",
+   "name": "Bankstown",
+   "region": "Major strategic centre",
+   "store": "riverwood",
+   "blurb": "A major centre in Sydney's south-west, with about 32,300 residents.",
+   "sportline": "Rugby league, soccer, basketball and cricket anchor a large club scene.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "basketball",
+    "cricket"
+   ],
+   "occasion": "club and school presentations across the Canterbury-Bankstown area",
+   "near": [
+    "greenacre",
+    "campsie",
+    "liverpool"
+   ]
+  },
+  {
+   "slug": "ryde",
+   "name": "Ryde",
+   "region": "Lower North and Ryde area",
+   "store": "both",
+   "blurb": "The Ryde area on Sydney's lower north side, with about 30,400 residents.",
+   "sportline": "Rugby, tennis, swimming and cricket are all well supported by local clubs and schools.",
+   "sports": [
+    "rugby",
+    "tennis",
+    "swimming",
+    "cricket"
+   ],
+   "occasion": "school and club presentations across the Ryde area",
+   "near": [
+    "epping",
+    "chatswood",
+    "parramatta"
+   ]
+  },
+  {
+   "slug": "hurstville",
+   "name": "Hurstville",
+   "region": "St George region",
+   "store": "riverwood",
+   "blurb": "The St George region's main centre, with about 30,000 residents.",
+   "sportline": "Rugby league, soccer, basketball and swimming make up much of the local calendar.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "basketball",
+    "swimming"
+   ],
+   "occasion": "St George club presentations and school carnivals",
+   "near": [
+    "campsie",
+    "greenacre",
+    "bankstown"
+   ]
+  },
+  {
+   "slug": "granville",
+   "name": "Granville",
+   "region": "Parramatta fringe",
+   "store": "both",
+   "blurb": "A suburb of about 29,900 residents on the Parramatta fringe.",
+   "sportline": "Soccer, rugby league, basketball and athletics are popular with local clubs.",
+   "sports": [
+    "soccer",
+    "rugby",
+    "basketball",
+    "athletics"
+   ],
+   "occasion": "community clubs and school awards near Parramatta",
+   "near": [
+    "parramatta",
+    "auburn",
+    "blacktown"
+   ]
+  },
+  {
+   "slug": "campsie",
+   "name": "Campsie",
+   "region": "Canterbury-Bankstown",
+   "store": "riverwood",
+   "blurb": "A busy suburb of about 24,500 residents with a lively local centre.",
+   "sportline": "Soccer, basketball, rugby league and dance feature on the local calendar.",
+   "sports": [
+    "soccer",
+    "basketball",
+    "rugby",
+    "dance"
+   ],
+   "occasion": "community club awards, dance concerts and school presentations",
+   "near": [
+    "hurstville",
+    "greenacre",
+    "bankstown"
+   ]
+  },
+  {
+   "slug": "pyrmont-ultimo",
+   "name": "Pyrmont / Ultimo",
+   "region": "Inner-city high density",
+   "store": "riverwood",
+   "blurb": "A high-density inner-city area of about 24,100 residents beside the CBD, home to the UTS campus.",
+   "sportline": "Corporate and university recognition leads here, with cycling and golf for after-hours.",
+   "sports": [
+    "plaques",
+    "schoolmedals",
+    "golf",
+    "cycling"
+   ],
+   "occasion": "corporate awards, university and workplace recognition",
+   "near": [
+    "potts-point-woolloomooloo",
+    "bondi",
+    "chatswood"
+   ]
+  },
+  {
+   "slug": "potts-point-woolloomooloo",
+   "name": "Potts Point / Woolloomooloo",
+   "region": "Inner-city harbourside",
+   "store": "riverwood",
+   "blurb": "A harbourside inner-city area of about 23,600 residents, from Potts Point to the Woolloomooloo wharves.",
+   "sportline": "Sailing, dance and corporate recognition suit the harbourside community.",
+   "sports": [
+    "plaques",
+    "sailing",
+    "golf",
+    "dance"
+   ],
+   "occasion": "hospitality and corporate awards, sailing events and dance studio presentations",
+   "near": [
+    "pyrmont-ultimo",
+    "bondi",
+    "chatswood"
+   ]
+  },
+  {
+   "slug": "bondi",
+   "name": "Bondi",
+   "region": "Eastern Sydney",
+   "store": "riverwood",
+   "blurb": "Home of Bondi Beach and the Bondi Surf Bathers' Life Saving Club, with about 23,200 residents in the area.",
+   "sportline": "Surf life saving and swimming lead, with rugby and sailing close behind.",
+   "sports": [
+    "lifesaving",
+    "swimming",
+    "rugby",
+    "sailing"
+   ],
+   "occasion": "surf club awards, school carnivals and eastern suburbs club presentations",
+   "near": [
+    "potts-point-woolloomooloo",
+    "pyrmont-ultimo",
+    "hurstville"
+   ]
+  },
+  {
+   "slug": "parramatta",
+   "name": "Parramatta",
+   "region": "Sydney's second CBD",
+   "store": "both",
+   "blurb": "Sydney's second CBD, a high-density hub with fast-growing apartment communities and the home of the Parramatta Eels.",
+   "sportline": "Rugby league, soccer and corporate recognition drive most local orders.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "plaques",
+    "schoolmedals"
+   ],
+   "occasion": "club presentations, corporate recognition and school awards",
+   "near": [
+    "granville",
+    "auburn",
+    "blacktown"
+   ]
+  },
+  {
+   "slug": "liverpool",
+   "name": "Liverpool",
+   "region": "South-west metropolitan centre",
+   "store": "riverwood",
+   "blurb": "A fast-growing centre in Sydney's south-west, on the Georges River.",
+   "sportline": "Soccer, rugby league, cricket and school sport keep the area's grounds busy.",
+   "sports": [
+    "soccer",
+    "rugby",
+    "cricket",
+    "schoolmedals"
+   ],
+   "occasion": "community clubs and school presentation days in the south-west",
+   "near": [
+    "bankstown",
+    "campbelltown",
+    "greenacre"
+   ]
+  },
+  {
+   "slug": "campbelltown",
+   "name": "Campbelltown",
+   "region": "Southern residential focal point",
+   "store": "riverwood",
+   "blurb": "The main centre of Macarthur, in Sydney's outer south-west.",
+   "sportline": "Rugby league, soccer, netball and cricket carry the local sporting year.",
+   "sports": [
+    "rugby",
+    "soccer",
+    "netball",
+    "cricket"
+   ],
+   "occasion": "club presentations and school awards across Macarthur",
+   "near": [
+    "liverpool",
+    "bankstown",
+    "hurstville"
+   ]
+  },
+  {
+   "slug": "chatswood",
+   "name": "Chatswood",
+   "region": "North Shore commercial and residential hub",
+   "store": "both",
+   "blurb": "A high-density commercial and residential hub on Sydney's North Shore.",
+   "sportline": "Corporate recognition, school medals, tennis and dance are the main sources of local orders.",
+   "sports": [
+    "plaques",
+    "schoolmedals",
+    "tennis",
+    "dance"
+   ],
+   "occasion": "corporate awards, school presentations and dance studio concerts",
+   "near": [
+    "ryde",
+    "epping",
+    "pyrmont-ultimo"
+   ]
+  },
+  {
+   "slug": "penrith",
+   "name": "Penrith",
+   "region": "Outer west",
+   "store": "castle-hill",
+   "blurb": "The outer-west centre of Sydney, at the foot of the Blue Mountains, home of the Penrith Panthers.",
+   "sportline": "Rugby league leads, with rowing on the Sydney International Regatta Centre lakes, plus soccer and equestrian events.",
+   "sports": [
+    "rugby",
+    "rowing",
+    "soccer",
+    "equestrian"
+   ],
+   "occasion": "club presentations, rowing regatta awards and equestrian events",
+   "near": [
+    "blacktown",
+    "castle-hill",
+    "campbelltown"
+   ]
+  },
+  {
+   "slug": "epping",
+   "name": "Epping",
+   "region": "North West and Eastwood transit hub",
+   "store": "castle-hill",
+   "blurb": "A high-density, rail-connected hub linking the North West and Eastwood.",
+   "sportline": "School sport, tennis, cricket and netball are the staples of local awards.",
+   "sports": [
+    "schoolmedals",
+    "tennis",
+    "cricket",
+    "netball"
+   ],
+   "occasion": "school presentation days and club awards between the North West and Eastwood",
+   "near": [
+    "ryde",
+    "castle-hill",
+    "baulkham-hills"
+   ]
+  }
+ ]
+}

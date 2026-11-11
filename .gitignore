@@ -1,0 +1,14 @@
+﻿.DS_Store
+Thumbs.db
+*.log
+__pycache__/
+*.pyc
+
+# SA repo: NSW and Victoria are tracked in their own repos; only their data files are needed to build
+trophies/new-south-wales/
+trophies/victoria/
+assets/img/products/nsw/
+docs/nsw/
+docs/victoria/
+sitemaps/sitemap-local.xml
+sitemaps/sitemap-victoria.xml
