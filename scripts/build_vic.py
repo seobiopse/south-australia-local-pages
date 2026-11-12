@@ -1,4 +1,4 @@
-﻿"""Generate every Victoria page: state hub, upgraded Melbourne hub, 19 Melbourne suburbs, 20 Victorian towns.
+"""Generate every Victoria page: state hub, upgraded Melbourne hub, 19 Melbourne suburbs, 20 Victorian towns.
 
 Run (from anywhere):
     python scripts/scrape_vic_products.py   # optional, refreshes live products/prices
@@ -29,14 +29,20 @@ with open(os.path.join(ROOT, 'data', 'victoria', 'vic_locations.json'), encoding
 with open(os.path.join(ROOT, 'data', 'victoria', 'vic_products.json'), encoding='utf-8') as _f:
     PROD = json.load(_f)
 
+_PROOF_FILE = os.path.join(ROOT, 'data', 'victoria', 'vic_proof.json')
+PROOF = {}
+if os.path.isfile(_PROOF_FILE):
+    with open(_PROOF_FILE, encoding='utf-8') as _f:
+        PROOF = {k: v for k, v in json.load(_f).items() if not k.startswith('_')}
+
 SUBS = LOC['suburbs']
 TOWNS = LOC['towns']
 SUB = {s['slug']: s for s in SUBS}
 TOWN = {t['slug']: t for t in TOWNS}
 
-STORE = {'key': 'thomastown', 'name': 'Thomastown', 'street': '11/8â€“20 Brock Street', 'suburb': 'Thomastown', 'pc': '3074',
+STORE = {'key': 'thomastown', 'name': 'Thomastown', 'street': '11/8–20 Brock Street', 'suburb': 'Thomastown', 'pc': '3074',
          'lat': -37.68788, 'lng': 145.0257629}
-STORE_ADDR = '11/8â€“20 Brock Street, Thomastown VIC 3074'
+STORE_ADDR = '11/8–20 Brock Street, Thomastown VIC 3074'
 GMAPS_STORE = 'https://maps.google.com/?q=Alpha+Trophies+Thomastown+VIC'
 EMBED = 'https://maps.google.com/maps?q=-37.68788,145.0257629&amp;hl=en&amp;z=15&amp;output=embed'
 
@@ -177,7 +183,7 @@ def maps_dir(name):
 
 HERO_GUARANTEES = '''    <div class="hero-guarantees">
       <div class="guarantee-item"><i class="fa-solid fa-shield-halved"></i><div><strong>Trusted since 1985</strong><span>Australian-owned</span></div></div>
-      <div class="guarantee-item"><i class="fa-solid fa-bolt"></i><div><strong>3â€“5 days production</strong><span>Rush from day 3</span></div></div>
+      <div class="guarantee-item"><i class="fa-solid fa-bolt"></i><div><strong>3–5 days production</strong><span>Rush from day 3</span></div></div>
       <div class="guarantee-item"><i class="fa-solid fa-award"></i><div><strong>No minimum order</strong><span>One trophy or hundreds</span></div></div>
     </div>'''
 
@@ -202,10 +208,22 @@ def hero(name, lead, chip, hero_prod, cta2_href, cta2_label):
   </div>
   <div class="hero-visual"><div class="hero-visual-card">
     <img src="%s" alt="%s" width="300" height="300">
-    <div class="hero-badge-overlay"><div><div style="font-size:13px;font-weight:700;color:#fff">4.9 â˜… Google rating</div><div style="font-size:12px;color:#d1d5db">232 reviews across all stores</div></div></div>
+    <div class="hero-badge-overlay"><div><div style="font-size:13px;font-weight:700;color:#fff">4.9 ★ Google rating</div><div style="font-size:12px;color:#d1d5db">232 reviews across all stores</div></div></div>
   </div></div>
 </div></header>''' % (escape(chip), escape(name), escape(lead), SITE, cta2_href, cta2_label, HERO_GUARANTEES,
                       hero_prod['img'], escape(hero_prod['name']))
+
+
+def proof_html(name, names, alt=False):
+    """'Trusted locally' strip of customer names supplied by Tom. Empty when there are none."""
+    if not names:
+        return ''
+    chips = ''.join('<div class="client-chip">%s</div>' % escape(n) for n in names)
+    return ('<section class="clients-strip"><div class="wrap">\n'
+            '  <h3>Trusted by %s clubs, schools and businesses</h3>\n'
+            '  <p>Local groups that have ordered from Alpha Trophies include:</p>\n'
+            '  <div class="client-chips">%s</div>\n'
+            '</div></section>\n' % (escape(name), chips))
 
 
 def page(depth, title, desc, canon, body, graph, extra_js=''):
@@ -235,11 +253,11 @@ def store_schema():
 
 
 def store_bar(distance_note=None):
-    note = ' &nbsp;Â·&nbsp; %s' % escape(distance_note) if distance_note else ''
+    note = ' &nbsp;·&nbsp; %s' % escape(distance_note) if distance_note else ''
     return ('<div class="store-bar" id="store"><div class="wrap store-bar-inner">\n'
             '  <div class="store-location"><div class="store-icon-wrap"><i class="fa-solid fa-shop"></i></div>\n'
             '  <div class="store-details"><h4>Thomastown showroom <span class="store-badge"><i class="fa-solid fa-circle-check"></i> Free pickup</span></h4>\n'
-            '  <p>%s &nbsp;Â·&nbsp; Monâ€“Fri 9amâ€“5pm%s</p></div></div>\n'
+            '  <p>%s &nbsp;·&nbsp; Mon–Fri 9am–5pm%s</p></div></div>\n'
             '  <div class="store-actions"><a class="btn-store-action" href="%s" target="_blank" rel="noopener"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>\n'
             '  <a class="btn-store-action" href="tel:1300485645"><i class="fa-solid fa-phone"></i> %s</a></div>\n'
             '</div></div>' % (escape(STORE_ADDR), note, GMAPS_STORE, PHONE))
@@ -307,7 +325,7 @@ def suburb_page(s):
   <p style="margin-top:14px;font-size:15px;color:var(--text-muted)">See the full <a href="../" %(link)s>Melbourne trophies page</a> or call <a href="tel:1300485645" %(link)s>%(phone)s</a>.</p></div>
 </div></section>
 
-<section class="sec sec-alt"><div class="wrap">
+%(proof)s<section class="sec sec-alt"><div class="wrap">
   <div class="sec-header"><span class="sec-eyebrow">%(name)s</span><h2 class="sec-title">%(name)s trophy questions</h2></div>
   <div class="faq-container">
 %(faq)s
@@ -316,7 +334,8 @@ def suburb_page(s):
 
 %(foot)s
 
-''' % {'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('Victoria', '../../'), ('Melbourne', '../'), (escape(name), None)]),
+''' % {'proof': proof_html(name, PROOF.get(s['slug'])),
+       'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('Victoria', '../../'), ('Melbourne', '../'), (escape(name), None)]),
        'hero': hero(name, '%s Engraved in-house, ready for pickup in Thomastown or delivered to %s clubs, schools and businesses.' % (s['blurb'], name),
                     s['region'], p0, '#directions', 'Getting to Thomastown'),
        'store': store_bar('%s km from %s' % (km, name)), 'name': escape(name), 'sportline': escape(s['sportline']),
@@ -396,7 +415,7 @@ def town_page(t):
   <p style="text-align:center;margin-top:24px;font-size:15px;color:var(--text-muted)">Order online and we deliver, or collect from our Thomastown showroom. Questions? Call <a href="tel:1300485645" %(link)s>%(phone)s</a> or email <a href="mailto:sales@alphatrophies.com.au" %(link)s>sales@alphatrophies.com.au</a>. See the <a href="../melbourne/" %(link)s>Melbourne page</a> for directions to the showroom.</p>
 </div></section>
 
-<section id="faq" class="sec sec-alt"><div class="wrap">
+%(proof)s<section id="faq" class="sec sec-alt"><div class="wrap">
   <div class="sec-header"><span class="sec-eyebrow">%(name)s</span><h2 class="sec-title">%(name)s trophy questions</h2></div>
   <div class="faq-container">
 %(faq)s
@@ -405,7 +424,8 @@ def town_page(t):
 
 %(foot)s
 
-''' % {'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('Victoria', '../'), (escape(name), None)]),
+''' % {'proof': proof_html(name, PROOF.get(t['slug'])),
+       'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('Victoria', '../'), (escape(name), None)]),
        'hero': hero(name, '%s Engraved in-house and delivered to %s clubs, schools and businesses.' % (t['blurb'], name),
                     t['region'], p0, '#faq', 'Delivery and FAQs'),
        'name': escape(name), 'sportline': escape(t['sportline']), 'cards': '\n'.join(card(p) for p in prods),
@@ -471,7 +491,7 @@ def state_page():
         label = {'schoolmedals': 'School medals'}.get(key, LABEL[key] + ' trophies')
         feat.append('<a class="feat-card" href="%s/%s"><div class="feat-img"><img src="%s" alt="%s" loading="lazy" width="320" height="240"><span class="feat-badge">%s</span></div>\n'
                     '      <div class="feat-body"><h3>%s</h3><p>%s</p>\n'
-                    '      <div class="feat-chips"><span><i class="fa-regular fa-clock"></i> 3â€“5 days production</span><span><i class="fa-regular fa-circle-check"></i> Free engraving included</span></div>\n'
+                    '      <div class="feat-chips"><span><i class="fa-regular fa-clock"></i> 3–5 days production</span><span><i class="fa-regular fa-circle-check"></i> Free engraving included</span></div>\n'
                     '      <div class="feat-price"><div><span class="feat-label">Starting price</span><strong>From $%.2f</strong></div><span class="feat-btn">Explore range <i class="fa-solid fa-arrow-right"></i></span></div></div></a>'
                     % (SITE, PROD[key]['path'], rep['img'], escape(unescape(rep['name'])), badge, label, blurb, min_price(key)))
     featured = (
@@ -506,7 +526,7 @@ def state_page():
     suburbs = (
         '<section class="sec sec-alt"><div class="wrap">\n'
         '  <div class="sec-header"><span class="sec-eyebrow">Melbourne suburbs</span><h2 class="sec-title">Trophies in your Melbourne suburb</h2>\n'
-        '  <p class="sec-sub">Each suburb page shows the drive to our Thomastown showroom and a trophy range for local clubs. Alburyâ€“Wodonga, on the border, is on our <a href="../new-south-wales/albury-wodonga/" %s>NSW page</a>.</p></div>\n'
+        '  <p class="sec-sub">Each suburb page shows the drive to our Thomastown showroom and a trophy range for local clubs. Albury–Wodonga, on the border, is on our <a href="../new-south-wales/albury-wodonga/" %s>NSW page</a>.</p></div>\n'
         '  <div class="chip-list" style="justify-content:center">%s</div>\n'
         '</div></section>' % (LINK, ''.join('<a class="chip" href="melbourne/%s/" style="text-decoration:none">%s</a>' % (s['slug'], escape(s['name'])) for s in SUBS)))
 
@@ -554,7 +574,7 @@ def state_page():
   </div>
   <div class="hero-visual"><div class="hero-visual-card">
     <img src="%(himg)s" alt="%(halt)s" width="300" height="300">
-    <div class="hero-badge-overlay"><div><div style="font-size:13px;font-weight:700;color:#fff">4.9 â˜… Google rating</div><div style="font-size:12px;color:#d1d5db">232 reviews across all stores</div></div></div>
+    <div class="hero-badge-overlay"><div><div style="font-size:13px;font-weight:700;color:#fff">4.9 ★ Google rating</div><div style="font-size:12px;color:#d1d5db">232 reviews across all stores</div></div></div>
   </div></div>
 </div></header>
 
@@ -571,7 +591,7 @@ def state_page():
     <span class="sec-eyebrow" style="text-align:left">Our Victorian location</span>
     <h2 class="sec-title" style="text-align:left">Alpha Trophies in Melbourne</h2>
     <p style="font-size:15px;color:var(--text-muted);margin-bottom:14px"><strong>Thomastown showroom:</strong> %(addr)s, off Settlement Road. Free pickup, with plenty of on-site parking.</p>
-    <p style="font-size:15px;color:var(--text-muted);margin-bottom:14px"><strong>Hours:</strong> Monâ€“Fri 9amâ€“5pm<br><strong>Phone:</strong> %(phone)s<br><strong>Email:</strong> sales@alphatrophies.com.au</p>
+    <p style="font-size:15px;color:var(--text-muted);margin-bottom:14px"><strong>Hours:</strong> Mon–Fri 9am–5pm<br><strong>Phone:</strong> %(phone)s<br><strong>Email:</strong> sales@alphatrophies.com.au</p>
     <p><a class="btn-primary" href="melbourne/#how-to-find-us" style="font-size:15px;padding:12px 22px"><i class="fa-solid fa-route"></i> See how to find us</a></p>
   </div>
   <div class="interactive-map-panel"><div class="map-embed-wrapper"><iframe title="Alpha Trophies Thomastown map" src="%(embed)s" loading="lazy"></iframe></div></div>
@@ -642,6 +662,12 @@ def melbourne_page():
     h = h[:start] + new_sec + h[end:]
     sub('<span style="color:var(--text-subtle)">More Victorian cities coming soon</span>',
         '<a href="../#cities" %s>More Victorian cities</a>' % LINK)
+    if PROOF.get('melbourne'):
+        chips = ''.join('<div class="client-chip">%s</div>' % escape(n) for n in PROOF['melbourne'])
+        sub('<p style="margin-top:24px">We also supply larger organisations such as:</p>',
+            '<p style="margin-top:24px">More Melbourne businesses and organisations that have ordered from us include:</p>\n'
+            '  <div class="client-chips">%s</div>\n'
+            '  <p style="margin-top:24px">We also supply larger organisations such as:</p>' % chips)
     # schema: add the suburb list
     graph_item = json.dumps({'@type': 'ItemList', 'name': 'Melbourne suburbs', 'itemListElement': [
         {'@type': 'ListItem', 'position': i + 1, 'name': s['name'], 'url': '%s/trophies/victoria/melbourne/%s/' % (SITE, s['slug'])}

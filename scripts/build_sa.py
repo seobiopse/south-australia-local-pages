@@ -21,8 +21,16 @@ import build_vic as V  # noqa: E402
 B = V.B
 ROOT = V.ROOT
 SITE = V.SITE
-PHONE = V.PHONE
+PHONE = '(08) 7070 1111'  # Prospect store line (Tom, 12 Nov 2026); site-wide chrome keeps 1300 485 645
+TEL = 'tel:+61870701111'
 escape = V.escape
+
+# optional local customer names for SA (same format as data/victoria/vic_proof.json); empty until Tom supplies them
+_PROOF_FILE = os.path.join(V.ROOT, 'data', 'sa', 'sa_proof.json')
+PROOF = {}
+if os.path.isfile(_PROOF_FILE):
+    with open(_PROOF_FILE, encoding='utf-8') as _f:
+        PROOF = {k: v for k, v in json.load(_f).items() if not k.startswith('_')}
 
 with open(os.path.join(ROOT, 'data', 'sa', 'sa_locations.json'), encoding='utf-8') as _f:
     LOC = json.load(_f)
@@ -69,7 +77,7 @@ def maps_dir(name):
 def store_schema():
     return {
         '@type': ['Store', 'LocalBusiness'], '@id': SITE + '/stores/prospect#store', 'name': 'Alpha Trophies Prospect',
-        'telephone': '+61 ' + PHONE, 'email': 'sales@alphatrophies.com.au', 'image': SITE + '/assets/frontend/img/logo.png',
+        'telephone': '+61 8 7070 1111', 'email': 'sales@alphatrophies.com.au', 'image': SITE + '/assets/frontend/img/logo.png',
         'priceRange': '$$', 'currenciesAccepted': 'AUD',
         'address': {'@type': 'PostalAddress', 'streetAddress': '56 Prospect Road', 'addressLocality': 'Prospect',
                     'addressRegion': 'SA', 'postalCode': '5082', 'addressCountry': 'AU'},
@@ -91,7 +99,7 @@ def store_bar(note=None):
             '  <div class="store-details"><h4>Prospect showroom <span class="store-badge"><i class="fa-solid fa-circle-check"></i> Free pickup</span></h4>\n'
             '  <p>%s &nbsp;·&nbsp; Mon–Fri 9am–5pm%s</p></div></div>\n'
             '  <div class="store-actions"><a class="btn-store-action" href="%s" target="_blank" rel="noopener"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>\n'
-            '  <a class="btn-store-action" href="tel:1300485645"><i class="fa-solid fa-phone"></i> %s</a></div>\n'
+            '  <a class="btn-store-action" href="tel:+61870701111"><i class="fa-solid fa-phone"></i> %s</a></div>\n'
             '</div></div>' % (escape(STORE_ADDR), note, GMAPS_STORE, PHONE))
 
 
@@ -161,10 +169,10 @@ def suburb_page(s):
   <p>%(blurb)s %(name)s is in the City of %(lga)s, in %(region)s, with %(pop)s (one of the 20 largest areas on our Adelaide list).%(fact)s</p></div>
   <div><h3>Nearby Adelaide suburbs</h3>
   <div class="chip-list">%(chips)s</div>
-  <p style="margin-top:14px;font-size:15px;color:var(--text-muted)">See the full <a href="../" %(link)s>Adelaide trophies page</a> or call <a href="tel:1300485645" %(link)s>%(phone)s</a>.</p></div>
+  <p style="margin-top:14px;font-size:15px;color:var(--text-muted)">See the full <a href="../" %(link)s>Adelaide trophies page</a> or call <a href="tel:+61870701111" %(link)s>%(phone)s</a>.</p></div>
 </div></section>
 
-<section class="sec sec-alt"><div class="wrap">
+%(proof)s<section class="sec sec-alt"><div class="wrap">
   <div class="sec-header"><span class="sec-eyebrow">%(name)s</span><h2 class="sec-title">%(name)s trophy questions</h2></div>
   <div class="faq-container">
 %(faq)s
@@ -173,7 +181,8 @@ def suburb_page(s):
 
 %(foot)s
 
-''' % {'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('South Australia', '../../'), ('Adelaide', '../'), (escape(name), None)]),
+''' % {'proof': V.proof_html(name, PROOF.get(s['slug'])),
+       'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('South Australia', '../../'), ('Adelaide', '../'), (escape(name), None)]),
        'hero': V.hero(name, '%s Engraved in-house, ready for pickup in Prospect or delivered to %s clubs, schools and businesses.' % (s['blurb'], name),
                       s['region'], p0, '#directions', 'Our showroom' if here else 'Getting to Prospect'),
        'store': store_bar(None if here else '%s km from %s' % (V.km_text(d['km']), name)), 'name': escape(name),
@@ -251,10 +260,10 @@ def town_page(t):
 <section class="sec"><div class="wrap">
   <div class="sec-header"><span class="sec-eyebrow">Also delivering nearby</span><h2 class="sec-title">Other South Australian towns near %(short)s</h2></div>
   <div class="chip-list" style="justify-content:center">%(chips)s</div>
-  <p style="text-align:center;margin-top:24px;font-size:15px;color:var(--text-muted)">Order online and we deliver, or collect from our Prospect showroom. Questions? Call <a href="tel:1300485645" %(link)s>%(phone)s</a> or email <a href="mailto:sales@alphatrophies.com.au" %(link)s>sales@alphatrophies.com.au</a>. See the <a href="../adelaide/" %(link)s>Adelaide page</a> for directions to the showroom.</p>
+  <p style="text-align:center;margin-top:24px;font-size:15px;color:var(--text-muted)">Order online and we deliver, or collect from our Prospect showroom. Questions? Call <a href="tel:+61870701111" %(link)s>%(phone)s</a> or email <a href="mailto:sales@alphatrophies.com.au" %(link)s>sales@alphatrophies.com.au</a>. See the <a href="../adelaide/" %(link)s>Adelaide page</a> for directions to the showroom.</p>
 </div></section>
 
-<section id="faq" class="sec sec-alt"><div class="wrap">
+%(proof)s<section id="faq" class="sec sec-alt"><div class="wrap">
   <div class="sec-header"><span class="sec-eyebrow">%(short)s</span><h2 class="sec-title">%(short)s trophy questions</h2></div>
   <div class="faq-container">
 %(faq)s
@@ -263,7 +272,8 @@ def town_page(t):
 
 %(foot)s
 
-''' % {'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('South Australia', '../'), (escape(name), None)]),
+''' % {'proof': V.proof_html(short, PROOF.get(t['slug'])),
+       'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('South Australia', '../'), (escape(name), None)]),
        'hero': V.hero(name, '%s Engraved in-house and delivered to %s clubs, schools and businesses.' % (t['blurb'], short),
                       t['region'], p0, '#faq', 'Delivery and FAQs'),
        'name': escape(name), 'short': escape(short), 'sportline': escape(t['sportline']),
