@@ -1164,3 +1164,9 @@
   .proof-btn:hover { background: var(--gold-600); }
   @media (max-width: 900px) { .proof-panel { padding: 32px 22px 26px; } .proof-head h2 { font-size: 28px; } .proof-cta { flex-direction: column; align-items: flex-start; } }
   @media (max-width: 640px) { .proof-section { padding: 32px 0; } .proof-grid { grid-template-columns: 1fr; } .proof-head h2 { font-size: 24px; } }
+
+  /* ---- customer mark: one fixed 64px square for every card (logo or initials) ---- */
+  .proof-ava { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 12px; font-size: 17px; }
+  .proof-ava.has-logo { background: #fff; border: 1px solid var(--border); padding: 7px; overflow: hidden; }
+  .proof-ava.has-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .proof-body { min-height: 64px; gap: 14px; }

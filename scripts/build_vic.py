@@ -260,18 +260,44 @@ def _initials(n):
     return ini or n[:2].upper()
 
 
-def proof_html(name, names, phone='1300 485 645', tel='tel:1300485645', nouns='clubs, schools and businesses'):
+LOGO_DIR = os.path.join(ROOT, 'assets', 'img', 'customers')
+LOGO_EXT = ('.png', '.svg', '.webp', '.jpg')
+
+
+def customer_slug(n):
+    """Stable asset name for a customer, e.g. 'Hoppers Elite Cricket Club' -> 'hoppers-elite-cricket-club'."""
+    s = n.lower().replace('&', ' and ')
+    s = re.sub(r"[^a-z0-9]+", '-', s.replace("'", ''))
+    return s.strip('-')
+
+
+def logo_file(n):
+    """Return the logo file name for a customer if one has been added to assets/img/customers/, else None."""
+    for ext in LOGO_EXT:
+        if os.path.isfile(os.path.join(LOGO_DIR, customer_slug(n) + ext)):
+            return customer_slug(n) + ext
+    return None
+
+
+def proof_html(name, names, phone='1300 485 645', tel='tel:1300485645', nouns='clubs, schools and businesses', depth=3):
     """Local customer cards from names supplied by Tom. Empty when there are none.
-    Tags are inferred from the name (override table above); no dates, locations or awards are claimed."""
+    Tags are inferred from the name (override table above); no dates, locations or awards are claimed.
+    Every card has the same 64px square mark: the customer's logo when assets/img/customers/<slug>.png exists, else initials."""
     if not names:
         return ''
     cards = []
     for n in names:
         t = _tag(n)
+        lf = logo_file(n)
+        if lf:
+            mark = ('<div class="proof-ava has-logo"><img src="%sassets/img/customers/%s" alt="%s logo" width="64" height="64" loading="lazy"></div>'
+                    % ('../' * depth, lf, escape(n)))
+        else:
+            mark = '<div class="proof-ava">%s</div>' % escape(_initials(n))
         cards.append('<div class="proof-card proof-%s"><span class="proof-tag">%s</span>'
-                     '<div class="proof-body"><div class="proof-ava">%s</div><div class="proof-name">%s</div></div>'
+                     '<div class="proof-body">%s<div class="proof-name">%s</div></div>'
                      '<div class="proof-foot"><span>%s</span><span>Local customer</span></div></div>'
-                     % (t, _TAG_LABEL[t], escape(_initials(n)), escape(n), escape(name)))
+                     % (t, _TAG_LABEL[t], mark, escape(n), escape(name)))
     return ('<section class="proof-section"><div class="wrap"><div class="proof-panel">\n'
             '  <div class="proof-head"><span class="proof-badge"><i class="fa-solid fa-circle-check"></i> Local customers</span>\n'
             '  <h2>Trusted by %s %s</h2>\n'
@@ -392,7 +418,7 @@ def suburb_page(s):
 
 %(foot)s
 
-''' % {'proof': proof_html(name, PROOF.get(s['slug'])),
+''' % {'proof': proof_html(name, PROOF.get(s['slug']), depth=4),
        'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('Victoria', '../../'), ('Melbourne', '../'), (escape(name), None)]),
        'hero': hero(name, '%s Engraved in-house, ready for pickup in Thomastown or delivered to %s clubs, schools and businesses.' % (s['blurb'], name),
                     s['region'], p0, '#directions', 'Getting to Thomastown'),
