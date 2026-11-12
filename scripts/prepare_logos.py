@@ -119,18 +119,18 @@ def main():
     if os.path.isfile(MANIFEST):
         with open(MANIFEST, encoding='utf-8-sig', newline='') as f:
             for r in csv.DictReader(f):
-                keep[r['slug']] = (r.get('source_url', ''), r.get('permission', ''))
+                keep[r['slug']] = (r.get('source_url', ''), r.get('permission', ''), r.get('notes', ''))
     os.makedirs(os.path.dirname(MANIFEST), exist_ok=True)
     have = 0
     with open(MANIFEST, 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
-        w.writerow(['customer', 'slug', 'asset_file', 'status', 'shown_on', 'source_url', 'permission'])
+        w.writerow(['customer', 'slug', 'asset_file', 'status', 'shown_on', 'source_url', 'permission', 'notes'])
         for n in sorted(cust, key=str.lower):
             slug = V.customer_slug(n)
             lf = V.logo_file(n)
             have += 1 if lf else 0
-            src, perm = keep.get(slug, ('', ''))
-            w.writerow([n, slug, lf or slug + '.png', 'present' if lf else 'missing', '; '.join(cust[n]), src, perm])
+            src, perm, note = keep.get(slug, ('', '', ''))
+            w.writerow([n, slug, lf or slug + '.png', 'present' if lf else 'missing', '; '.join(cust[n]), src, perm, note])
     print('customers: %d | logos present: %d | missing: %d' % (len(cust), have, len(cust) - have))
     print('processed this run: %d' % len(done))
     if unknown:

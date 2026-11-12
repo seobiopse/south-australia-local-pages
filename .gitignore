@@ -12,3 +12,7 @@ docs/nsw/
 docs/victoria/
 sitemaps/sitemap-local.xml
 sitemaps/sitemap-victoria.xml
+
+# raw customer logo originals stay local; processed 512px assets are tracked
+data/customers/logos-raw/*
+!data/customers/logos-raw/.gitkeep
