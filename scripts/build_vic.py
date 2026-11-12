@@ -35,6 +35,11 @@ if os.path.isfile(_PROOF_FILE):
     with open(_PROOF_FILE, encoding='utf-8') as _f:
         PROOF = {k: v for k, v in json.load(_f).items() if not k.startswith('_')}
 
+# Melbourne hub: names already on the saved draft (Tom, 8 Oct 2026) and larger organisations from the live /about-us page
+HUB_CLUBS = ["Macleod Football Netball Club", "Diamond Creek Women's Football Club", "Reservoir Primary School",
+             "Marymede Catholic College"]
+HUB_LARGE = ["Victoria Police", "RMIT University", "Bunnings", "Ray White", "Downer", "Boxing Victoria"]
+
 SUBS = LOC['suburbs']
 TOWNS = LOC['towns']
 SUB = {s['slug']: s for s in SUBS}
@@ -214,16 +219,69 @@ def hero(name, lead, chip, hero_prod, cta2_href, cta2_label):
                       hero_prod['img'], escape(hero_prod['name']))
 
 
-def proof_html(name, names, alt=False):
-    """'Trusted locally' strip of customer names supplied by Tom. Empty when there are none."""
+_STOP = {'the', 'of', 'and', 'for', 'de', 'at'}
+# tag overrides where the keyword rules below would guess wrong
+_TAG_OVERRIDE = {
+    'Rotary Club of Glen Waverley': 'comm', 'Sri Guru Singh Sabha': 'comm', 'Tamu Samaj Victoria': 'comm',
+    'Cook Islands Community Services Vic Inc': 'comm', 'Friends of the Tulliallan Elms Inc.': 'comm',
+    'Shepparton Malayalee Association Inc.': 'comm', 'Box Hill RSL Sub-Branch': 'comm', 'Wimmera Poultry Club': 'comm',
+    'Global Youth Mental Health Awareness (GYMHA)': 'comm', 'Respect Sports Inc.': 'sport', 'Auscarts Racing': 'sport',
+    'Homestyle Aged Care Langford Grange': 'biz', 'Monash Centre for Financial Studies': 'edu',
+    'Anugraha Kuchipudi Dance Academy': 'sport', 'Victorian Super Tin Tops': 'biz', 'Global Events Company': 'biz',
+    'Institute of Public Accountants': 'biz', 'Institute of Financial Professionals Australia': 'biz',
+    'Waters Lawyers': 'biz', 'Indie School Mildura': 'edu', "School's OUT Gisborne": 'biz', 'Hamlyn Views School': 'edu',
+    'Gippsland Grammar': 'edu', 'Gippsland Storm Netball Club': 'sport', 'Boxing Victoria': 'sport', 'Victoria Police': 'biz',
+    'Downer': 'biz', 'Bunnings': 'biz', 'Ray White': 'biz', 'RMIT University': 'edu', 'Monash University': 'edu',
+}
+_EDU = ('school', 'college', 'university', 'grammar', 'primary', 'secondary', 'p-12', 'education hub')
+_SPORT = ('club', 'football', 'basketball', 'netball', 'gymnastics', 'rugby', 'cricket', 'swim', 'judo', 'soccer', 'futsal',
+          'tenpin', 'badminton', 'rabbitohs', 'wildcats', 'ballers', 'sports', 'sporting', 'billiards', 'padel', 'rockets',
+          'bulldogs', 'rookies', 'suns', 'coasters', 'eagles', 'bears', 'wolfpack', 'lions', 'warriors', 'flyers',
+          'barbarians', 'rlfc', 'gym', 'fit ', 'bft ', 'dance', 'greyhound', 'hoops', 'fc')
+_TAG_LABEL = {'sport': 'Sport & recreation', 'edu': 'School & education', 'comm': 'Community group', 'biz': 'Business & organisation'}
+
+
+def _tag(n):
+    if n in _TAG_OVERRIDE:
+        return _TAG_OVERRIDE[n]
+    low = ' %s ' % n.lower()
+    if any(k in low for k in _EDU):
+        return 'edu'
+    if any(k in low for k in _SPORT):
+        return 'sport'
+    return 'biz'
+
+
+def _initials(n):
+    words = [w for w in re.split(r'[\s/&]+', n) if w and w.lower() not in _STOP and w[0].isalnum()]
+    if len(words) == 1:
+        return words[0][:2].upper()
+    ini = ''.join(w[0] for w in words[:2]).upper()
+    return ini or n[:2].upper()
+
+
+def proof_html(name, names, phone='1300 485 645', tel='tel:1300485645', nouns='clubs, schools and businesses'):
+    """Local customer cards from names supplied by Tom. Empty when there are none.
+    Tags are inferred from the name (override table above); no dates, locations or awards are claimed."""
     if not names:
         return ''
-    chips = ''.join('<div class="client-chip">%s</div>' % escape(n) for n in names)
-    return ('<section class="clients-strip"><div class="wrap">\n'
-            '  <h3>Trusted by %s clubs, schools and businesses</h3>\n'
-            '  <p>Local groups that have ordered from Alpha Trophies include:</p>\n'
-            '  <div class="client-chips">%s</div>\n'
-            '</div></section>\n' % (escape(name), chips))
+    cards = []
+    for n in names:
+        t = _tag(n)
+        cards.append('<div class="proof-card proof-%s"><span class="proof-tag">%s</span>'
+                     '<div class="proof-body"><div class="proof-ava">%s</div><div class="proof-name">%s</div></div>'
+                     '<div class="proof-foot"><span>%s</span><span>Local customer</span></div></div>'
+                     % (t, _TAG_LABEL[t], escape(_initials(n)), escape(n), escape(name)))
+    return ('<section class="proof-section"><div class="wrap"><div class="proof-panel">\n'
+            '  <div class="proof-head"><span class="proof-badge"><i class="fa-solid fa-circle-check"></i> Local customers</span>\n'
+            '  <h2>Trusted by %s %s</h2>\n'
+            '  <p>%d %s that have ordered from Alpha Trophies in %s. Every award is engraved in-house, with free engraving on every order.</p></div>\n'
+            '  <div class="proof-grid">\n%s\n  </div>\n'
+            '  <div class="proof-cta"><div><h3>Ordering for a club, school or business?</h3>'
+            '<p>No minimum order, free engraving and flat-rate delivery from $9.90. Tell us your event date and we will confirm the right production option.</p></div>'
+            '<a class="proof-btn" href="%s"><i class="fa-solid fa-phone"></i> Call %s</a></div>\n'
+            '</div></div></section>\n' % (escape(name), nouns, len(names), 'customer' if len(names) == 1 else 'customers', escape(name),
+                                           '\n'.join(cards), tel, escape(phone)))
 
 
 def page(depth, title, desc, canon, body, graph, extra_js=''):
@@ -662,12 +720,12 @@ def melbourne_page():
     h = h[:start] + new_sec + h[end:]
     sub('<span style="color:var(--text-subtle)">More Victorian cities coming soon</span>',
         '<a href="../#cities" %s>More Victorian cities</a>' % LINK)
-    if PROOF.get('melbourne'):
-        chips = ''.join('<div class="client-chip">%s</div>' % escape(n) for n in PROOF['melbourne'])
-        sub('<p style="margin-top:24px">We also supply larger organisations such as:</p>',
-            '<p style="margin-top:24px">More Melbourne businesses and organisations that have ordered from us include:</p>\n'
-            '  <div class="client-chips">%s</div>\n'
-            '  <p style="margin-top:24px">We also supply larger organisations such as:</p>' % chips)
+    # customers section: the saved draft strip is replaced by the card grid (large names first, then clubs, then Tom's list)
+    names = HUB_LARGE + HUB_CLUBS + PROOF.get('melbourne', [])
+    new_proof = proof_html('Melbourne', names, nouns='clubs, schools and organisations')
+    h, n_sub = re.subn(r'<section class="clients-strip">.*?</section>\n?', lambda m: new_proof, h, count=1, flags=re.S)
+    if n_sub != 1:
+        raise RuntimeError('Melbourne hub customers section not found')
     # schema: add the suburb list
     graph_item = json.dumps({'@type': 'ItemList', 'name': 'Melbourne suburbs', 'itemListElement': [
         {'@type': 'ListItem', 'position': i + 1, 'name': s['name'], 'url': '%s/trophies/victoria/melbourne/%s/' % (SITE, s['slug'])}

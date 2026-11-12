@@ -181,7 +181,7 @@ def suburb_page(s):
 
 %(foot)s
 
-''' % {'proof': V.proof_html(name, PROOF.get(s['slug'])),
+''' % {'proof': V.proof_html(name, PROOF.get(s['slug']), PHONE, TEL),
        'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('South Australia', '../../'), ('Adelaide', '../'), (escape(name), None)]),
        'hero': V.hero(name, '%s Engraved in-house, ready for pickup in Prospect or delivered to %s clubs, schools and businesses.' % (s['blurb'], name),
                       s['region'], p0, '#directions', 'Our showroom' if here else 'Getting to Prospect'),
@@ -272,7 +272,7 @@ def town_page(t):
 
 %(foot)s
 
-''' % {'proof': V.proof_html(short, PROOF.get(t['slug'])),
+''' % {'proof': V.proof_html(short, PROOF.get(t['slug']), PHONE, TEL),
        'crumbs': B.crumbs([('Trophies', SITE + '/products/trophies'), ('South Australia', '../'), (escape(name), None)]),
        'hero': V.hero(name, '%s Engraved in-house and delivered to %s clubs, schools and businesses.' % (t['blurb'], short),
                       t['region'], p0, '#faq', 'Delivery and FAQs'),
