@@ -1170,3 +1170,52 @@
   .proof-ava.has-logo { background: #fff; border: 1px solid var(--border); padding: 7px; overflow: hidden; }
   .proof-ava.has-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
   .proof-body { min-height: 64px; gap: 14px; }
+
+/* ===== lite fixes: no colour or layout changes to the brand ===== */
+:root { --focus: #1d3567; --text-subtle: #566478; }
+/* phone product grid (breakpoints in the stylesheet, not inline) */
+.product-grid--4 { grid-template-columns: repeat(4, 1fr); }
+.product-card { min-width: 0; }
+.product-title { overflow-wrap: anywhere; }
+@media (max-width: 1100px) { .product-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .product-grid--4 { grid-template-columns: 1fr; } }
+/* small grey text on dark backgrounds slightly lighter */
+.footer-bottom, .footer-bottom p, .mm-blurb { color: #a8b6cc; }
+.proof-tag { font-size: 11px; }
+/* accessibility that does not move anything */
+.skip-link { position: absolute; left: 12px; top: -64px; background: #0e1b38; color: #fff; padding: 12px 18px; border-radius: 8px; z-index: 200; font-weight: 700; }
+.skip-link:focus { top: 12px; }
+[id] { scroll-margin-top: 140px; }
+:where(a, button, summary, input, select, textarea):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+.hero :focus-visible, .dlv-dark :focus-visible, .site-footer :focus-visible, .proof-cta :focus-visible, .mm-bar :focus-visible, .top-bar :focus-visible { outline-color: #fbbf24; }
+/* same look as before, but real heading tags instead of h4 */
+.store-details .store-title { font-size: 15px; font-weight: 700; color: var(--navy-900); display: flex; align-items: center; gap: 8px; margin: 0; }
+.dir-card h3 { font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.dir-card h3 i { color: var(--gold-500); font-size: 13px; }
+.suburb-card h3 { font-size: 16px; font-weight: 700; color: var(--navy-950); margin-bottom: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .proof-card, .product-card, .btn-primary, .dir-city, .cat-tile, .suburb-card { transition: none; }
+  .proof-card:hover, .product-card:hover, .btn-primary:hover, .dir-city:hover, .cat-tile:hover { transform: none; }
+  .product-card:hover .product-thumb-wrap img { transform: none; }
+}
+
+/* ===== hybrid: customers section from the redesign, original gold ===== */
+.proof-section { background: #fff; padding: 56px 0; }
+.proof-panel { background: transparent; border: 0; box-shadow: none; padding: 0; max-width: 1024px; }
+.proof-head { margin-bottom: 28px; }
+.proof-card { background: #fff; padding: 14px; }
+.proof-tag { font-size: 11px; letter-spacing: .06em; }
+.proof-foot { display: none; }
+.proof-ava { flex: 0 0 76px; width: 76px; height: 76px; font-size: 20px; }
+.proof-body { min-height: 76px; }
+.proof-ava:not(.has-logo) { background: var(--tint, #e9edf5); color: var(--ink, #0e1b38); border: 1px solid var(--tintb, #d3dae8); }
+.proof-sport { --tint: #e8eefb; --ink: #1d3567; --tintb: #cfd9f1; }
+.proof-edu { --tint: #e0f4f1; --ink: #0b5f58; --tintb: #bfe6e0; }
+.proof-comm { --tint: #fef7e8; --ink: #9e7223; --tintb: #f1dfb6; }
+.proof-biz { --tint: #e9edf5; --ink: #0e1b38; --tintb: #d3dae8; }
+.proof-ava.has-logo { padding: 3px; }
+.proof-grid:not(.is-open) .is-extra { display: none; }
+.proof-more { display: flex; align-items: center; gap: 8px; margin: 24px auto 0; background: #fff; border: 1.5px solid var(--navy-900); color: var(--navy-900); font: inherit; font-weight: 700; padding: 12px 22px; border-radius: 10px; min-height: 44px; cursor: pointer; }
+.proof-more:hover { background: var(--navy-900); color: #fff; }
+.proof-more[aria-expanded="true"] i { transform: rotate(180deg); }
+@media (max-width: 640px) { .proof-panel { max-width: 100%; } }

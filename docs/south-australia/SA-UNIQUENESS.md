@@ -17,7 +17,7 @@ None.
 | Page | Type | Words | Unique % | Rare % | Max sim | Most similar to |
 |---|---|---|---|---|---|---|
 | south-australia | sa-state | 1002 | 40% | 86% | 0.27 | victoria |
-| south-australia/adelaide | sa-hub | 1239 | 54% | 86% | 0.15 | victoria/melbourne |
+| south-australia/adelaide | sa-hub | 1239 | 54% | 86% | 0.14 | victoria/melbourne |
 | south-australia/adelaide/aberfoyle-park | sa-suburb | 560 | 36% | 45% | 0.37 | south-australia/adelaide/woodcroft |
 | south-australia/adelaide/aldinga-beach | sa-suburb | 578 | 32% | 43% | 0.38 | south-australia/adelaide/seaford |
 | south-australia/adelaide/andrews-farm | sa-suburb | 571 | 31% | 41% | 0.40 | south-australia/adelaide/paralowie |

@@ -285,36 +285,74 @@ def proof_html(name, names, phone='1300 485 645', tel='tel:1300485645', nouns='c
     Every card has the same 64px square mark: the customer's logo when assets/img/customers/<slug>.png exists, else initials."""
     if not names:
         return ''
-    cards = []
+    items = []
     for n in names:
         t = _tag(n)
         lf = logo_file(n)
+        ini = escape(_initials(n))
         if lf:
-            mark = ('<div class="proof-ava has-logo"><img src="%sassets/img/customers/%s" alt="%s logo" width="64" height="64" loading="lazy"></div>'
-                    % ('../' * depth, lf, escape(n)))
+            mark = ('<div class="proof-ava has-logo"><img src="%s" alt="%s logo" width="76" height="76" loading="lazy" decoding="async" '
+                    'onerror="this.parentNode.className=\'proof-ava\';this.parentNode.textContent=\'%s\'"></div>'
+                    % (logo_src(lf, depth), escape(n), ini))
         else:
-            mark = '<div class="proof-ava">%s</div>' % escape(_initials(n))
-        cards.append('<div class="proof-card proof-%s"><span class="proof-tag">%s</span>'
-                     '<div class="proof-body">%s<div class="proof-name">%s</div></div>'
-                     '<div class="proof-foot"><span>%s</span><span>Local customer</span></div></div>'
-                     % (t, _TAG_LABEL[t], mark, escape(n), escape(name)))
+            mark = '<div class="proof-ava" aria-hidden="true">%s</div>' % ini
+        items.append((0 if lf else 1, t, mark, n))
+    items.sort(key=lambda x: x[0])  # customers with a logo first; otherwise the supplied order
+    limit = 8
+    cards = []
+    for i, (_, t, mark, n) in enumerate(items):
+        extra = ' is-extra' if (len(items) > limit and i >= limit) else ''
+        cards.append('<div class="proof-card proof-%s%s"><span class="proof-tag">%s</span>'
+                     '<div class="proof-body">%s<div class="proof-name">%s</div></div></div>'
+                     % (t, extra, _TAG_LABEL[t], mark, escape(n)))
+    more = ''
+    if len(items) > limit:
+        more = ('\n  <button type="button" class="proof-more" aria-expanded="false" data-all="Show all %d customers" data-less="Show fewer">'
+                '<span class="t">Show all %d customers</span> <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>'
+                '\n  <noscript><style>.proof-grid .is-extra{display:flex!important}.proof-more{display:none}</style></noscript>'
+                '\n  <script>document.querySelectorAll(".proof-more").forEach(function(b){b.addEventListener("click",function(){'
+                'var g=b.previousElementSibling,o=g.classList.toggle("is-open");b.setAttribute("aria-expanded",o);'
+                'b.querySelector(".t").textContent=o?b.dataset.less:b.dataset.all;});});</script>' % (len(items), len(items)))
     return ('<section class="proof-section"><div class="wrap"><div class="proof-panel">\n'
-            '  <div class="proof-head"><span class="proof-badge"><i class="fa-solid fa-circle-check"></i> Local customers</span>\n'
+            '  <div class="proof-head">\n'
             '  <h2>Trusted by %s %s</h2>\n'
             '  <p>%d %s that have ordered from Alpha Trophies in %s. Every award is engraved in-house, with free engraving on every order.</p></div>\n'
-            '  <div class="proof-grid">\n%s\n  </div>\n'
+            '  <div class="proof-grid">\n%s\n  </div>%s\n'
             '  <div class="proof-cta"><div><h3>Ordering for a club, school or business?</h3>'
             '<p>No minimum order, free engraving and flat-rate delivery from $9.90. Tell us your event date and we will confirm the right production option.</p></div>'
             '<a class="proof-btn" href="%s"><i class="fa-solid fa-phone"></i> Call %s</a></div>\n'
             '</div></div></section>\n' % (escape(name), nouns, len(names), 'customer' if len(names) == 1 else 'customers', escape(name),
-                                           '\n'.join(cards), tel, escape(phone)))
+                                           '\n'.join(cards), more, tel, escape(phone)))
+
+
+def logo_src(lf, depth):
+    """Small WebP for the page when one exists (assets/img/customers/sm/), else the 512px asset."""
+    base = os.path.splitext(lf)[0]
+    if os.path.isfile(os.path.join(LOGO_DIR, 'sm', base + '.webp')):
+        return '%sassets/img/customers/sm/%s.webp' % ('../' * depth, base)
+    return '%sassets/img/customers/%s' % ('../' * depth, lf)
+
+
+def post(h):
+    """Page-level fixes applied to every generated page: responsive product grid, landmarks, heading order, mobile contact bar."""
+    h = h.replace(' class="product-grid" style="grid-template-columns:repeat(4,1fr)"', ' class="product-grid product-grid--4"')
+    h = h.replace('color:#64748b">ABN', 'color:#94a3b8">ABN')
+    h = re.sub(r'(<div class="store-details">)<h4>(.*?)</h4>', r'\1<p class="store-title">\2</p>', h, flags=re.S)
+    h = re.sub(r'(<div class="suburb-card">)<h4>(.*?)</h4>', r'\1<h3>\2</h3>', h, flags=re.S)
+    h = re.sub(r'(<div class="dir-card">)<h4>(.*?)</h4>', r'\1<h3>\2</h3>', h, flags=re.S)
+    if '<main id="main">' not in h:
+        h = h.replace('<div class="crumbs-section">', '<main id="main"><div class="crumbs-section">', 1)
+        h = h.replace('<footer class="site-footer">', '</main><footer class="site-footer">', 1)
+    if 'class="skip-link"' not in h:
+        h = h.replace('<body>', '<body><a class="skip-link" href="#main">Skip to content</a>', 1)
+    return h
 
 
 def page(depth, title, desc, canon, body, graph, extra_js=''):
     pre, footer = B.chrome(depth)
-    return (B.head(pre, title, desc, canon, depth) + body + B.fix_footer(footer, depth) +
-            B.ld({'@context': 'https://schema.org', '@graph': graph}) +
-            '\n<script src="%sassets/js/nav.js" defer></script>%s</body></html>\n' % ('../' * depth, extra_js))
+    return post(B.head(pre, title, desc, canon, depth) + body + B.fix_footer(footer, depth) +
+                B.ld({'@context': 'https://schema.org', '@graph': graph}) +
+                '\n<script src="%sassets/js/nav.js" defer></script>%s</body></html>\n' % ('../' * depth, extra_js))
 
 
 def store_schema():
@@ -758,7 +796,7 @@ def melbourne_page():
         for i, s in enumerate(SUBS)]}, indent=1, ensure_ascii=False)
     sub('  {\n   "@type": "ItemList",\n   "name": "Featured products in Melbourne",',
         '  ' + graph_item.replace('\n', '\n  ') + ',\n  {\n   "@type": "ItemList",\n   "name": "Featured products in Melbourne",')
-    return h
+    return post(h)
 
 
 # ---------------------------------------------------------------------------
