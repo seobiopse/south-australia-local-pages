@@ -279,6 +279,18 @@ def logo_file(n):
     return None
 
 
+REVIEW = ('4.9', '235', 'Thomastown')  # rating, review count, store; build_sa.py overrides for Prospect
+
+_LGA_FULL = {'Cardinia': 'Shire of Cardinia', 'City of Melbourne': 'City of Melbourne',
+             'City of Adelaide': 'City of Adelaide', 'Mount Barker': 'District Council of Mount Barker',
+             'Gawler': 'Town of Gawler'}
+
+
+def lga_name(l):
+    """Full council name: most are 'City of X'; a few are Shire / District Council / Town."""
+    return _LGA_FULL.get(l) or 'City of %s' % l
+
+
 def proof_html(name, names, phone='1300 485 645', tel='tel:1300485645', nouns='clubs, schools and businesses', depth=3):
     """Local customer cards from names supplied by Tom. Empty when there are none.
     Tags are inferred from the name (override table above); no dates, locations or awards are claimed.
@@ -337,6 +349,12 @@ def post(h):
     """Page-level fixes applied to every generated page: responsive product grid, landmarks, heading order, mobile contact bar."""
     h = h.replace(' class="product-grid" style="grid-template-columns:repeat(4,1fr)"', ' class="product-grid product-grid--4"')
     h = h.replace('color:#64748b">ABN', 'color:#94a3b8">ABN')
+    # Google Business Profile rating and review count for this state's store (checked on Google Maps, 13 Nov 2026)
+    rating, count, store = REVIEW
+    h = h.replace('4.9 ★ Google Rating</strong> (232 reviews, all stores)',
+                  '%s ★ Google Rating</strong> (%s reviews, %s store)' % (rating, count, store))
+    h = h.replace('4.9 ★ Google rating</div><div style="font-size:12px;color:#d1d5db">232 reviews across all stores',
+                  '%s ★ Google rating</div><div style="font-size:12px;color:#d1d5db">%s Google reviews, %s store' % (rating, count, store))
     h = re.sub(r'(<div class="store-details">)<h4>(.*?)</h4>', r'\1<p class="store-title">\2</p>', h, flags=re.S)
     h = re.sub(r'(<div class="suburb-card">)<h4>(.*?)</h4>', r'\1<h3>\2</h3>', h, flags=re.S)
     h = re.sub(r'(<div class="dir-card">)<h4>(.*?)</h4>', r'\1<h3>\2</h3>', h, flags=re.S)
@@ -350,6 +368,11 @@ def post(h):
 
 def page(depth, title, desc, canon, body, graph, extra_js=''):
     pre, footer = B.chrome(depth)
+    for g in graph:  # structured data: every CollectionPage gets a description, language and its parent site
+        if isinstance(g, dict) and g.get('@type') == 'CollectionPage':
+            g.setdefault('description', desc)
+            g['inLanguage'] = 'en-AU'
+            g['isPartOf'] = {'@type': 'WebSite', 'name': 'Alpha Trophies', 'url': SITE + '/'}
     return post(B.head(pre, title, desc, canon, depth) + body + B.fix_footer(footer, depth) +
                 B.ld({'@context': 'https://schema.org', '@graph': graph}) +
                 '\n<script src="%sassets/js/nav.js" defer></script>%s</body></html>\n' % ('../' * depth, extra_js))
@@ -436,12 +459,12 @@ def suburb_page(s):
   <p><a class="btn-store-action" href="%(dirlink)s" target="_blank" rel="noopener"><i class="fa-solid fa-route"></i> Directions from %(name)s</a></p></div>
   <div><h3>Pickup or delivery to %(name)s</h3>
   <p>Collect from Thomastown after 5 working days, or from day 3 with Priority Rush pickup. Prefer delivery? Standard shipping is a $9.90 flat rate and express is $25, after production.</p>
-  <p>Typical orders from %(name)s include %(occ)s.</p></div>
+  <p>Popular presentation days in %(name)s include %(occ)s.</p></div>
 </div></section>
 
 <section class="sec"><div class="wrap copy-two">
   <div><h3>About %(name)s</h3>
-  <p>%(blurb)s %(name)s is in the City of %(lga)s, in %(region)s, with about %(pop)s residents (number %(rank)d on our Melbourne top 20 list).%(fact)s</p></div>
+  <p>%(blurb)s %(name)s is in the %(lga)s, in %(region)s, with about %(pop)s residents (number %(rank)d on our Melbourne top 20 list).%(fact)s</p></div>
   <div><h3>Nearby Melbourne suburbs</h3>
   <div class="chip-list">%(chips)s</div>
   <p style="margin-top:14px;font-size:15px;color:var(--text-muted)">See the full <a href="../" %(link)s>Melbourne trophies page</a> or call <a href="tel:1300485645" %(link)s>%(phone)s</a>.</p></div>
@@ -462,7 +485,7 @@ def suburb_page(s):
                     s['region'], p0, '#directions', 'Getting to Thomastown'),
        'store': store_bar('%s km from %s' % (km, name)), 'name': escape(name), 'sportline': escape(s['sportline']),
        'cards': '\n'.join(card(p) for p in prods), 'drive': escape(drive_line), 'dirlink': maps_dir(name),
-       'occ': escape(s['occasion']), 'blurb': escape(s['blurb']), 'lga': escape(s['lga']), 'region': escape(s['region']),
+       'occ': escape(s['occasion']), 'blurb': escape(s['blurb']), 'lga': escape(lga_name(s['lga'])), 'region': escape(s['region']),
        'pop': fmt_pop(s['pop']), 'rank': s['rank'], 'fact': escape(fact), 'chips': chips, 'link': LINK, 'phone': PHONE,
        'faq': B.faq_html(faqs),
        'foot': FOOT_STRIP % ('<a href="../" %s><i class="fa-solid fa-arrow-left"></i> Trophies in Melbourne</a>'
@@ -491,7 +514,7 @@ def town_page(t):
     prods = product_set(t['sports'], 2)
     p0 = prods[0]
     title = 'Trophies in %s | Alpha Trophies' % name
-    desc = ('Custom trophies, medals and plaques delivered to %s, about %s km from Melbourne. Free engraving, $9.90 flat-rate shipping, no minimum order.' % (name, km))
+    desc = ('Custom trophies and medals delivered to %s, about %s km from Melbourne. Free engraving, $9.90 flat-rate shipping, no minimum order.' % (name, km))
     drive_line = ('%s is about %s km by road from our Thomastown showroom, via %s. Google Maps shows about %s in afternoon traffic.'
                   % (name, km, d['route'], d['time']))
     fact = (' ' + t['fact']) if t['fact'] else ''
@@ -528,7 +551,7 @@ def town_page(t):
   <p>The %(name)s urban area has about %(pop)s residents (ABS estimate, June 2025), %(growth)s over the past ten years, and ranks number %(rank)d of the Victorian urban areas on our list.</p></div>
   <div><h3>Presentation days in %(region)s</h3>
   <p>%(blurb)s%(fact)s</p>
-  <p>We regularly see orders from the area for %(occ)s. Fast Track (4 working days) and Priority Rush (3 working days) are available at checkout when a date is fixed.</p></div>
+  <p>Popular presentation days here include %(occ)s. Fast Track (4 working days) and Priority Rush (3 working days) are available at checkout when a date is fixed.</p></div>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -590,7 +613,7 @@ def min_price(key):
 def state_page():
     depth = 2
     canon = SITE + '/trophies/victoria/'
-    title = 'Custom Trophies Victoria | Free Engraving | Alpha Trophies'
+    title = 'Custom Trophies &amp; Medals Victoria | Alpha Trophies'  # meta experiment 13 Nov 2026 ("custom medals" 300/mo, KD 0)
     desc = ('Custom trophies, medals and awards for Victorian clubs, schools and businesses. Free engraving, flat-rate delivery statewide, Melbourne showroom.')
     faqs = [
         ('Do you deliver trophies across Victoria?',
@@ -610,7 +633,7 @@ def state_page():
     for (key, blurb, badge) in STATE_TILES:
         items = PROD[key]['items']
         rep = items[min(2, len(items) - 1)]
-        label = {'schoolmedals': 'School medals'}.get(key, LABEL[key] + ' trophies')
+        label = {'schoolmedals': 'Custom medals for schools'}.get(key, LABEL[key] + ' trophies')
         feat.append('<a class="feat-card" href="%s/%s"><div class="feat-img"><img src="%s" alt="%s" loading="lazy" width="320" height="240"><span class="feat-badge">%s</span></div>\n'
                     '      <div class="feat-body"><h3>%s</h3><p>%s</p>\n'
                     '      <div class="feat-chips"><span><i class="fa-regular fa-clock"></i> 3–5 days production</span><span><i class="fa-regular fa-circle-check"></i> Free engraving included</span></div>\n'
@@ -761,14 +784,29 @@ def melbourne_page():
         h = h.replace(old, new, count)
 
     h = re.sub(r'<div class="review-banner">.*?</div>\s*', '', h, count=1, flags=re.S)
-    title = 'Custom Trophies Melbourne | Thomastown Pickup | Alpha Trophies'
+    # Meta experiment (13 Nov 2026): lead with "trophy shop Melbourne" (50/mo, KD 36) as the hub's primary term
+    title = 'Trophy Shop Melbourne | Custom Trophies | Alpha Trophies'
+    new_desc = ('Trophy shop in Thomastown for custom trophies, medals and awards in Melbourne. Free engraving and free pickup, or delivery across Melbourne.')
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h, count=1, flags=re.S)
     h = h.replace('Custom Trophies Melbourne | Free Engraving, Thomastown Pickup | Alpha Trophies', title)
+    sub('Custom trophies, medals and awards in Melbourne. Free engraving, free pickup from our Thomastown showroom off Settlement Rd, or delivered across Melbourne.',
+        new_desc, 2)
     # verified drive data (Google Maps, 11 Nov 2026)
     sub('From Reservoir and nearby</h4><ol class="steps-list"><li>Head north on Cheddar Road or Dalton Road. About 4.5 km, 9 minutes.</li>',
         'From Reservoir and nearby</h4><ol class="steps-list"><li>Head north on Cheddar Road. About 3.9 km, 9 minutes.</li>')
     sub('About 22 km, 21 minutes from Craigieburn.', 'About 22 km from Craigieburn, roughly 20 to 30 minutes depending on traffic.')
     sub('About 32 km, 35 minutes from the CBD.', 'About 34 km from Southbank, roughly 35 to 40 minutes depending on traffic.')
+    # keyword-led H2s (Ahrefs, 13 Nov 2026): custom trophies and medals, trophy shop
+    sub('<h2 class="sec-title">Featured trophies, medals and plaques</h2>', '<h2 class="sec-title">Custom trophies and medals in Melbourne</h2>')
+    sub('<h2 class="sec-title">How to find our Thomastown store</h2>', '<h2 class="sec-title">Find our Thomastown trophy shop</h2>')
+    # car/van directions only, as on the NSW and SA hubs: drop the unverified bus-route box (Route 902); keep parking
+    h, n_bus = re.subn(r'<h4[^>]*><i class="fa-solid fa-bus".*?</p>\s*', '', h, count=1, flags=re.S)
+    if n_bus != 1:
+        raise RuntimeError('Melbourne hub public transport box not found')
+    # "see samples" is unconfirmed by Tom: answer the pickup question instead
+    sub('Can I see products before I order?', 'Can I pick up my order from the showroom?', 2)
+    sub('Yes. Visit the Thomastown showroom during opening hours to see samples and talk to the team.',
+        'Yes. Free pickup from the Thomastown showroom, Monday to Friday 9am to 5pm, once your order is ready. There is no same-day pickup.', 2)
     # suburb section: linked cards for all 19 suburbs
     start = h.index('<section class="sec sec-alt"><div class="wrap">\n  <div class="sec-header"><span class="sec-eyebrow">Melbourne suburbs</span>')
     end = h.index('</section>', start) + len('</section>')
@@ -791,7 +829,10 @@ def melbourne_page():
     if n_sub != 1:
         raise RuntimeError('Melbourne hub customers section not found')
     # schema: add the suburb list
-    graph_item = json.dumps({'@type': 'ItemList', 'name': 'Melbourne suburbs', 'itemListElement': [
+    coll = {'@type': 'CollectionPage', 'name': 'Custom Trophies Melbourne', 'url': SITE + '/trophies/victoria/melbourne/',
+            'description': new_desc, 'inLanguage': 'en-AU', 'about': {'@type': 'City', 'name': 'Melbourne'},
+            'isPartOf': {'@type': 'WebSite', 'name': 'Alpha Trophies', 'url': SITE + '/'}}
+    graph_item = json.dumps(coll, indent=1, ensure_ascii=False) + ',\n' + json.dumps({'@type': 'ItemList', 'name': 'Melbourne suburbs', 'itemListElement': [
         {'@type': 'ListItem', 'position': i + 1, 'name': s['name'], 'url': '%s/trophies/victoria/melbourne/%s/' % (SITE, s['slug'])}
         for i, s in enumerate(SUBS)]}, indent=1, ensure_ascii=False)
     sub('  {\n   "@type": "ItemList",\n   "name": "Featured products in Melbourne",',

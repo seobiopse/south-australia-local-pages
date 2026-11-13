@@ -17,6 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_vic as V  # noqa: E402
+V.REVIEW = ('5.0', '139', 'Prospect')  # Google Business Profile, checked 13 Nov 2026
 
 B = V.B
 ROOT = V.ROOT
@@ -161,12 +162,12 @@ def suburb_page(s):
   <div>%(left)s</div>
   <div><h3>Pickup or delivery to %(name)s</h3>
   <p>Collect from Prospect after 5 working days, or from day 3 with Priority Rush pickup. Prefer delivery? Standard shipping is a $9.90 flat rate and express is $25, after production.</p>
-  <p>Typical orders from %(name)s include %(occ)s.</p></div>
+  <p>Popular presentation days in %(name)s include %(occ)s.</p></div>
 </div></section>
 
 <section class="sec"><div class="wrap copy-two">
   <div><h3>About %(name)s</h3>
-  <p>%(blurb)s %(name)s is in the City of %(lga)s, in %(region)s, with %(pop)s (one of the 20 largest areas on our Adelaide list).%(fact)s</p></div>
+  <p>%(blurb)s %(name)s is in the %(lga)s, in %(region)s, with %(pop)s (one of the 20 largest areas on our Adelaide list).%(fact)s</p></div>
   <div><h3>Nearby Adelaide suburbs</h3>
   <div class="chip-list">%(chips)s</div>
   <p style="margin-top:14px;font-size:15px;color:var(--text-muted)">See the full <a href="../" %(link)s>Adelaide trophies page</a> or call <a href="tel:+61870701111" %(link)s>%(phone)s</a>.</p></div>
@@ -187,7 +188,7 @@ def suburb_page(s):
                       s['region'], p0, '#directions', 'Our showroom' if here else 'Getting to Prospect'),
        'store': store_bar(None if here else '%s km from %s' % (V.km_text(d['km']), name)), 'name': escape(name),
        'sportline': escape(s['sportline']), 'cards': '\n'.join(V.card(p) for p in prods), 'left': left,
-       'occ': escape(s['occasion']), 'blurb': escape(s['blurb']), 'lga': escape(s['lga']), 'region': escape(s['region']),
+       'occ': escape(s['occasion']), 'blurb': escape(s['blurb']), 'lga': escape(V.lga_name(s['lga'])), 'region': escape(s['region']),
        'pop': escape(s['pop_text']), 'fact': escape(fact), 'chips': chips, 'link': LINK, 'phone': PHONE,
        'faq': B.faq_html(faqs),
        'foot': V.FOOT_STRIP % ('<a href="../" %s><i class="fa-solid fa-arrow-left"></i> Trophies in Adelaide</a>'
@@ -218,7 +219,7 @@ def town_page(t):
     prods = V.product_set(t['sports'], 2)
     p0 = prods[0]
     title = 'Trophies in %s | Alpha Trophies' % name
-    desc = ('Custom trophies, medals and plaques delivered to %s, about %s km from Adelaide. Free engraving, $9.90 flat-rate shipping, no minimum order.' % (short, km))
+    desc = ('Custom trophies and medals delivered to %s, about %s km from Adelaide. Free engraving, $9.90 flat-rate shipping, no minimum order.' % (short, km))
     drive_line = drive_sentence(short, d)
     fact = (' ' + t['fact']) if t['fact'] else ''
     faqs = [
@@ -254,7 +255,7 @@ def town_page(t):
   <p>The %(name)s area has about %(pop)s residents (ABS estimate, June 2025), %(growth)s over the past ten years, and ranks number %(rank)d of the South Australian urban areas on our list.</p></div>
   <div><h3>Presentation days in %(region)s</h3>
   <p>%(blurb)s%(fact)s</p>
-  <p>We regularly see orders from the area for %(occ)s. Fast Track (4 working days) and Priority Rush (3 working days) are available at checkout when a date is fixed.</p></div>
+  <p>Popular presentation days here include %(occ)s. Fast Track (4 working days) and Priority Rush (3 working days) are available at checkout when a date is fixed.</p></div>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -300,8 +301,8 @@ def town_page(t):
 def adelaide_page():
     depth = 3
     canon = SITE + '/trophies/south-australia/adelaide/'
-    title = 'Custom Trophies Adelaide | Prospect Pickup | Alpha Trophies'
-    desc = ('Custom trophies, medals and awards in Adelaide. Free engraving, free pickup from our Prospect showroom on Prospect Road, or delivered across Adelaide.')
+    title = 'Trophy Shop Adelaide | Custom Trophies | Alpha Trophies'  # meta experiment 13 Nov 2026 ("trophy shop adelaide" 100/mo)
+    desc = ('Trophy shop in Prospect for custom trophies, medals and awards in Adelaide. Free engraving and free pickup, or delivery across Adelaide.')
     prods = V.product_set(['afl', 'soccer', 'netball', 'cricket', 'basketball', 'lawnbowls', 'schoolmedals', 'plaques'], 1)
     faqs = [
         ('Where can I pick up trophies in Adelaide?',
@@ -312,7 +313,7 @@ def adelaide_page():
          'Yes. Standard shipping is a $9.90 flat rate and express is $25, after 5 working days production.'),
         ('Is engraving free?', 'Yes, free engraving on every order, and there is no minimum order.'),
         ('Is there parking at the Prospect showroom?', 'Yes, there is plenty of on-site parking at the Prospect showroom.'),
-        ('Can I see products before I order?', 'Yes. Visit the Prospect showroom during opening hours to see samples and talk to the team.'),
+        ('Can I pick up my order from the showroom?', 'Yes. Free pickup from the Prospect showroom, Monday to Friday 9am to 5pm, once your order is ready. There is no same-day pickup.'),
     ]
     cards = []
     for s in SUBS:
@@ -345,7 +346,7 @@ def adelaide_page():
 %(store)s
 
 <section class="product-showcase-strip"><div class="wrap">
-  <div class="sec-header"><span class="sec-eyebrow">Popular with Adelaide clubs and schools</span><h2 class="sec-title">Featured trophies, medals and plaques</h2>
+  <div class="sec-header"><span class="sec-eyebrow">Popular with Adelaide clubs and schools</span><h2 class="sec-title">Custom trophies and medals in Adelaide</h2>
   <p class="sec-sub">Real products from our range, all with free engraving. Prices are the starting price on the product page.</p></div>
   <div class="product-grid" style="grid-template-columns:repeat(4,1fr)">
 %(cards)s
@@ -372,7 +373,7 @@ def adelaide_page():
 </div></section>
 
 <section id="how-to-find-us" class="sec"><div class="wrap">
-  <div class="sec-header"><span class="sec-eyebrow">Local showroom</span><h2 class="sec-title">How to find our Prospect store</h2>
+  <div class="sec-header"><span class="sec-eyebrow">Local showroom</span><h2 class="sec-title">Find our Prospect trophy shop</h2>
   <p class="sec-sub">We are at <strong>56 Prospect Road</strong>, Prospect, about 4 km north of the Adelaide CBD. Distances and times below are from Google Maps in afternoon traffic.</p></div>
   <div class="find-us-layout">
     <div>
@@ -446,7 +447,7 @@ STATE_TILES = [
 def state_page():
     depth = 2
     canon = SITE + '/trophies/south-australia/'
-    title = 'Custom Trophies South Australia | Free Engraving | Alpha Trophies'
+    title = 'Custom Trophies &amp; Medals South Australia | Alpha Trophies'  # meta experiment 13 Nov 2026
     desc = ('Custom trophies, medals and awards for South Australian clubs, schools and businesses. Free engraving, flat-rate delivery statewide, Adelaide showroom.')
     faqs = [
         ('Do you deliver trophies across South Australia?',
@@ -465,7 +466,7 @@ def state_page():
     for key, blurb, badge in STATE_TILES:
         items = V.PROD[key]['items']
         rep = items[min(4, len(items) - 1)]
-        label = {'schoolmedals': 'School medals'}.get(key, V.LABEL[key] + ' trophies')
+        label = {'schoolmedals': 'Custom medals for schools'}.get(key, V.LABEL[key] + ' trophies')
         feat.append('<a class="feat-card" href="%s/%s"><div class="feat-img"><img src="%s" alt="%s" loading="lazy" width="320" height="240"><span class="feat-badge">%s</span></div>\n'
                     '      <div class="feat-body"><h3>%s</h3><p>%s</p>\n'
                     '      <div class="feat-chips"><span><i class="fa-regular fa-clock"></i> 3–5 days production</span><span><i class="fa-regular fa-circle-check"></i> Free engraving included</span></div>\n'
